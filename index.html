@@ -1056,6 +1056,17 @@ h1 {
   font-size: 12.5px;
 }
 
+.chips.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.chips.grid3 .chip {
+  min-width: 0;
+  padding: 0 4px;
+}
+
 .quick {
   display: flex;
   gap: 6px;
@@ -1383,6 +1394,67 @@ input.switch:checked::after {
 .toast.in {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+/* 节数加减 */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(127, 133, 155, 0.14);
+  border-radius: 12px;
+  padding: 3px;
+}
+
+.stepper button {
+  width: 32px;
+  height: 30px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--panel-solid);
+  box-shadow: 0 2px 6px rgba(10, 14, 30, 0.08);
+}
+
+.stepper button:active {
+  transform: scale(0.94);
+}
+
+.stepper span {
+  min-width: 30px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+/* 一屏放下时收紧字号，保证课程名还能读 */
+.is-compact .course {
+  padding: 3px 4px 3px 7px;
+  border-radius: 10px;
+}
+
+.is-compact .course-name {
+  font-size: 10px;
+  line-height: 1.15;
+  -webkit-line-clamp: 2;
+}
+
+.is-compact .course-room {
+  margin-top: 1px;
+  font-size: 8px;
+}
+
+.is-compact .course.is-one .course-room {
+  display: none;
+}
+
+.is-compact .axis-time {
+  font-size: 8px;
 }
 
 /* 滚动条 */
@@ -2196,7 +2268,183 @@ function parseAnything(text) {
   return { ...got, format: 'csv' };
 }
 
-/* 课程表 · 应用主体（由 build.mjs 与 parse.js 合并为单文件） */
+/* 课表 → 系统日历（.ics）
+ *
+ * 为什么不是网页通知：iOS 上 Safari 不允许网页在后台定时弹通知（需要服务器推送）。
+ * 把课程写成日历事件 + VALARM，交给「日历」App 提醒，才是锁屏也能响的可靠做法。
+ */
+
+const icsPad2 = (n) => String(n).padStart(2, '0');
+
+function icsParseISO(iso) {
+  const [y, m, d] = String(iso || '').split('-').map(Number);
+  return new Date(y || 2000, (m || 1) - 1, d || 1);
+}
+
+function icsAddDays(date, n) {
+  const x = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  x.setDate(x.getDate() + n);
+  return x;
+}
+
+function icsMinutes(hhmm) {
+  const [h, m] = String(hhmm || '00:00').split(':').map(Number);
+  return (h || 0) * 60 + (m || 0);
+}
+
+// RFC 5545 要求按 75 个「字节」折行（中文一个字符占 3 字节），不能按字符数
+function fold(line) {
+  const encoder = new TextEncoder();
+  if (encoder.encode(line).length <= 75) return line;
+  const parts = [];
+  let cur = '';
+  let bytes = 0;
+  for (const ch of line) {
+    const size = encoder.encode(ch).length;
+    if (bytes + size > 74) {
+      parts.push(cur);
+      cur = '';
+      bytes = 0;
+    }
+    cur += ch;
+    bytes += size;
+  }
+  if (cur) parts.push(cur);
+  return parts.join('\r\n ');
+}
+
+function text(value) {
+  return String(value == null ? '' : value)
+    .replace(/\\/g, '\\\\')
+    .replace(/;/g, '\\;')
+    .replace(/,/g, '\\,')
+    .replace(/\r?\n/g, '\\n');
+}
+
+/** 把周次切成能用 RRULE 表示的段：整段隔周 → 一段；否则按连续周切段 */
+function weekRuns(weeks) {
+  const list = [...new Set((weeks || []).map(Number).filter((n) => n >= 1 && n <= 40))].sort((a, b) => a - b);
+  if (!list.length) return [];
+  const gaps = list.slice(1).map((v, i) => v - list[i]);
+  // 整段都是隔周（单周/双周课）
+  if (list.length > 1 && gaps.every((g) => g === 2)) return [list];
+  const runs = [];
+  let cur = [list[0]];
+  for (let i = 1; i < list.length; i += 1) {
+    if (list[i] - list[i - 1] === 1) cur.push(list[i]);
+    else {
+      runs.push(cur);
+      cur = [list[i]];
+    }
+  }
+  runs.push(cur);
+  return runs;
+}
+
+/** 一段周次能否用 RRULE 表示：全连续 → INTERVAL 1，全隔周 → INTERVAL 2 */
+function runRule(run) {
+  if (run.length === 1) return { step: 1, count: 1 };
+  const gaps = run.slice(1).map((v, i) => v - run[i]);
+  if (gaps.every((g) => g === 1)) return { step: 1, count: run.length };
+  if (gaps.every((g) => g === 2)) return { step: 2, count: run.length };
+  return null;
+}
+
+/** 规划出要写进日历的事件（每门课可能拆成 1~n 个循环日程） */
+function planEvents(meta, courses) {
+  const sections = (meta && meta.sections) || [];
+  const startDate = icsParseISO(meta && meta.start);
+  const events = [];
+  for (const course of courses || []) {
+    const startSec = sections[Number(course.start) - 1];
+    const endSec = sections[Math.min(Number(course.end), sections.length) - 1];
+    if (!startSec || !endSec) continue;
+    if (!Array.isArray(course.weeks) || !course.weeks.length) continue;
+    const day = Math.min(7, Math.max(1, Number(course.day) || 1));
+    for (const run of weekRuns(course.weeks)) {
+      const rule = runRule(run);
+      if (rule) {
+        events.push({
+          course,
+          day,
+          firstWeek: run[0],
+          step: rule.step,
+          count: rule.count,
+          start: startSec,
+          end: endSec,
+        });
+      } else {
+        run.forEach((w) =>
+          events.push({ course, day, firstWeek: w, step: 1, count: 1, start: startSec, end: endSec })
+        );
+      }
+    }
+  }
+  return events;
+}
+
+function stamp(date) {
+  return `${date.getFullYear()}${icsPad2(date.getMonth() + 1)}${icsPad2(date.getDate())}`;
+}
+
+function clock(hhmm) {
+  const m = icsMinutes(hhmm);
+  return `${icsPad2(Math.floor(m / 60))}${icsPad2(m % 60)}00`;
+}
+
+/**
+ * 生成 .ics 文本
+ * @param {object} meta  { start, sections: [{s,e}] }
+ * @param {array}  courses
+ * @param {number} leadMinutes 课前多少分钟提醒（0 = 不提醒）
+ */
+function buildICS(meta, courses, leadMinutes = 10) {
+  const events = planEvents(meta, courses);
+  const startDate = icsParseISO(meta && meta.start);
+  const lead = Math.max(0, Math.min(120, Number(leadMinutes) || 0));
+  const now = new Date();
+  const dtstamp = `${stamp(now)}T${icsPad2(now.getHours())}${icsPad2(now.getMinutes())}${icsPad2(now.getSeconds())}Z`;
+
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//kcb//iPhone Course Table//CN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'X-WR-CALNAME:课程表',
+  ];
+
+  events.forEach((ev, index) => {
+    const date = icsAddDays(startDate, (ev.firstWeek - 1) * 7 + (ev.day - 1));
+    const day = stamp(date);
+    const desc = [ev.course.teacher, ev.course.room].filter(Boolean).join(' · ');
+    // UID 只跟课程 id + 起始周有关：同一份课表重复导出，日历可以据此识别重复项
+    const cid = String(ev.course.id || `c${index}`).replace(/[^A-Za-z0-9_-]/g, '');
+    lines.push(
+      'BEGIN:VEVENT',
+      `UID:kcb-${cid}-w${ev.firstWeek}@kcb.local`,
+      `DTSTAMP:${dtstamp}`,
+      `DTSTART:${day}T${clock(ev.start.s)}`,
+      `DTEND:${day}T${clock(ev.end.e)}`,
+      `SUMMARY:${text(ev.course.name)}`,
+      ev.course.room ? `LOCATION:${text(ev.course.room)}` : null,
+      desc ? `DESCRIPTION:${text(desc)}` : null,
+      ev.count > 1 ? `RRULE:FREQ=WEEKLY;INTERVAL=${ev.step};COUNT=${ev.count}` : null,
+      lead > 0 ? 'BEGIN:VALARM' : null,
+      lead > 0 ? `TRIGGER:-PT${lead}M` : null,
+      lead > 0 ? 'ACTION:DISPLAY' : null,
+      lead > 0 ? `DESCRIPTION:${text(ev.course.name)}` : null,
+      lead > 0 ? 'END:VALARM' : null,
+      'END:VEVENT'
+    );
+  });
+
+  lines.push('END:VCALENDAR');
+  return lines.filter((l) => l != null).map(fold).join('\r\n') + '\r\n';
+}
+
+/* 课程表 · 应用主体（由 build.mjs 与 parse.js / ics.js 合并为单文件） */
+
 
 const STORE_KEY = 'kcb.app.v2';
 const HUES = [214, 250, 278, 300, 330, 350, 12, 30, 44, 88, 152, 188];
@@ -2254,6 +2502,10 @@ function minutes(hhmm) {
   const [h, m] = String(hhmm || '00:00').split(':').map(Number);
   return (h || 0) * 60 + (m || 0);
 }
+function fmtMinutes(total) {
+  const m = clamp(Math.round(total), 0, 23 * 60 + 59);
+  return `${pad2(Math.floor(m / 60))}:${pad2(m % 60)}`;
+}
 function isoDate(date) {
   return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}`;
 }
@@ -2276,12 +2528,13 @@ function defaultMeta() {
     start: isoDate(monday),
     showWeekend: false,
     theme: 'auto',
+    reminder: 10,
     sections: DEFAULT_SECTIONS.map((x) => ({ ...x })),
   };
 }
 
 function newState() {
-  return { version: 2, meta: defaultMeta(), courses: [] };
+  return { version: 3, meta: defaultMeta(), courses: [] };
 }
 
 function loadState() {
@@ -2305,6 +2558,8 @@ function migrate(data) {
       .map((s) => ({ s: String(s.s || '').slice(0, 5), e: String(s.e || '').slice(0, 5) }))
       .filter((s) => /^\d{2}:\d{2}$/.test(s.s) && /^\d{2}:\d{2}$/.test(s.e));
     if (!out.meta.sections.length) out.meta.sections = defaultMeta().sections;
+    const rem = Number(data.meta.reminder);
+    out.meta.reminder = Number.isFinite(rem) && data.meta.reminder !== null ? clamp(rem, 0, 60) : 10;
   }
   const list = Array.isArray(data.courses) ? data.courses : [];
   out.courses = list
@@ -2324,6 +2579,7 @@ function migrate(data) {
       };
     })
     .filter((c) => c.name);
+  ensureSections(out.meta.sections, out.courses.reduce((m, c) => Math.max(m, Number(c.end) || 0), 0));
   return out;
 }
 
@@ -2349,10 +2605,38 @@ function weekMonday(week) {
   return addDays(startOfWeek(parseISO(state.meta.start)), (week - 1) * 7);
 }
 
+/** 导入备份时恢复学期设置（开学日期、节次时间、提醒等） */
+function applyImportedMeta(meta) {
+  if (!meta || typeof meta !== 'object') return false;
+  if (meta.name) state.meta.name = String(meta.name);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(String(meta.start || ''))) state.meta.start = String(meta.start);
+  if (Array.isArray(meta.sections) && meta.sections.length) {
+    const secs = meta.sections
+      .map((s) => ({ s: String(s.s || '').slice(0, 5), e: String(s.e || '').slice(0, 5) }))
+      .filter((s) => /^\d{2}:\d{2}$/.test(s.s) && /^\d{2}:\d{2}$/.test(s.e));
+    if (secs.length) state.meta.sections = secs;
+  }
+  if (meta.showWeekend != null) state.meta.showWeekend = !!meta.showWeekend;
+  if (meta.reminder != null) state.meta.reminder = clamp(Number(meta.reminder) || 0, 0, 60);
+  if (meta.theme === 'light' || meta.theme === 'dark' || meta.theme === 'auto') state.meta.theme = meta.theme;
+  return true;
+}
+
+/** 有课程的节次超出当前节数时自动补足，避免课程“消失” */
+function ensureSections(secs, maxEnd) {
+  if (!Array.isArray(secs)) return;
+  const need = Number(maxEnd) || 0;
+  while (secs.length < need && secs.length < 16) {
+    const last = secs[secs.length - 1] || { s: '08:00', e: '08:45' };
+    const startAt = minutes(last.e) + 10;
+    secs.push({ s: fmtMinutes(startAt), e: fmtMinutes(startAt + 45) });
+  }
+}
+
 /* ---------------- 布局 ---------------- */
-function buildLayout(sections) {
-  const ROW = 54;
-  const BRK = 22;
+function buildLayout(sections, rowH = 54, brkH = 22) {
+  const ROW = rowH;
+  const BRK = brkH;
   const rows = [];
   let y = 0;
   sections.forEach((sec, i) => {
@@ -2367,6 +2651,22 @@ function buildLayout(sections) {
     y += ROW;
   });
   return { rows, total: y, rowH: ROW };
+}
+
+/** 干完一天最多能放几行：优先让全天一屏看完，放不下才退回滚动 */
+function fitRowHeight(boardEl, sections) {
+  const brkCount = sections.slice(1).filter((s, i) => minutes(s.s) - minutes(sections[i].e) >= 35).length;
+  const HEAD = 58;
+  const PAD = 12;
+  const avail = (boardEl ? boardEl.clientHeight : 0) - HEAD - PAD;
+  if (avail < 200) return { rowH: 54, brkH: 22, fits: false };
+  let brkH = 20;
+  let rowH = Math.floor((avail - brkCount * brkH) / sections.length);
+  if (rowH < 44) brkH = 15;
+  rowH = Math.floor((avail - brkCount * brkH) / sections.length);
+  const fits = rowH >= 32;
+  rowH = clamp(rowH, 32, 54);
+  return { rowH, brkH, fits };
 }
 
 function visibleDays() {
@@ -2487,7 +2787,11 @@ function courseBlock(c, i, top, height) {
   const isToday = viewWeek === currentWeek() && c.day === weekdayIndex(now);
   const s = minutes((sec[c.start - 1] || sec[0]).s);
   const e = minutes((sec[Math.min(c.end, sec.length) - 1] || sec[sec.length - 1]).e);
-  const cls = [isToday && nowMin > e ? 'is-past' : '', isToday && nowMin >= s && nowMin <= e ? 'is-now' : ''].join(' ');
+  const cls = [
+    isToday && nowMin > e ? 'is-past' : '',
+    isToday && nowMin >= s && nowMin <= e ? 'is-now' : '',
+    c.end === c.start ? 'is-one' : '',
+  ].join(' ');
   const w = 100 / c.laneCount;
   const left = c.lane * w;
   return `<button class="course ${cls}" data-id="${esc(c.id)}" style="--h:${c.hue};--i:${i};top:${top}px;height:${height}px;left:calc(${left}% + 2px);width:calc(${w}% - 4px)" aria-label="${esc(
@@ -2519,7 +2823,9 @@ function renderBoard(opts = {}) {
     return;
   }
 
-  const layout = buildLayout(secs);
+  const fit = fitRowHeight(board, secs);
+  const layout = buildLayout(secs, fit.rowH, fit.brkH);
+  board.classList.toggle('is-compact', fit.rowH < 44);
   const days = visibleDays();
   const monday = weekMonday(viewWeek);
   const todayIdx = weekdayIndex(new Date());
@@ -2600,7 +2906,9 @@ function renderBoard(opts = {}) {
   const inner = $('.board-inner', board);
   inner.style.setProperty('--rowh', `${layout.rowH}px`);
 
-  if (opts.scrollToNow !== false && isTodayWeek && offset != null && offset < layout.total * 0.55) {
+  // 一屏放得下就固定从顶部开始，不滚动；放不下才滚到当前时间
+  const overflows = board.scrollHeight > board.clientHeight + 4;
+  if (opts.scrollToNow !== false && overflows && isTodayWeek && offset != null && offset < layout.total * 0.55) {
     board.scrollTop = Math.max(0, offset - 110);
   } else if (opts.scrollToNow !== false) {
     board.scrollTop = 0;
@@ -2889,6 +3197,10 @@ function openImport(prefill = '') {
       <label><input type="radio" name="impmode" value="append" checked> 追加</label>
       <label><input type="radio" name="impmode" value="replace"> 替换全部</label>
     </div>
+    <label class="switch-row" id="imp-meta-row" hidden style="margin-top:6px">
+      <div>同时恢复学期设置<small>开学日期、节次时间、课前提醒</small></div>
+      <input class="switch" type="checkbox" id="imp-meta" checked>
+    </label>
     <p class="helper">粘贴时会自动读取剪贴板里的网页结构（最准）；也支持被拍平成文本的课表、CSV 和 JSON。导入后请检查周次与节次，可在课表里点课程修改。</p>
     <input type="file" id="imp-fileinput" accept=".json,.csv,.txt,.html,.htm,text/*" hidden>`;
 
@@ -2924,6 +3236,8 @@ function openImport(prefill = '') {
              ${warnings.length ? `<div class="warn">${esc(warnings.slice(0, 3).join(' '))}</div>` : ''}`
           : `<h4>没有识别出课程</h4><div class="warn">${esc(warnings[0] || '请检查粘贴的内容是否完整。')}</div>`;
         doBtn.disabled = courses.length === 0;
+        const metaRow = $('#imp-meta-row', bodyEl);
+        if (metaRow) metaRow.hidden = !(parsed.meta && parsed.meta.start);
       };
 
       const runParse = () => {
@@ -3012,11 +3326,18 @@ function openImport(prefill = '') {
             }
           });
         }
+        const restoreMeta = parsed.meta && $('#imp-meta', bodyEl) && $('#imp-meta', bodyEl).checked;
+        if (restoreMeta) {
+          applyImportedMeta(parsed.meta);
+          applyTheme();
+        }
+        // 学校节次比设置多时自动补足，避免第 12 节的课被丢掉
+        ensureSections(state.meta.sections, imported.reduce((m, c) => Math.max(m, c.end), 0));
         saveState();
         close();
         viewWeek = clamp(currentWeek(), 1, maxWeek());
         render();
-        toast(`已导入 ${imported.length} 门课程`);
+        toast(`已导入 ${imported.length} 门课程${restoreMeta ? '，并恢复学期设置' : ''}`);
       });
 
       if (prefill) setTimeout(runParse, 60);
@@ -3061,10 +3382,27 @@ function openSettings() {
         <input class="switch" type="checkbox" id="s-weekend" ${m.showWeekend ? 'checked' : ''}>
       </div>
     </div>
+    <div class="field" style="padding:2px 13px">
+      <div class="switch-row">
+        <div>每天节数<small>课表显示几行，11 节就填 11</small></div>
+        <div class="stepper">
+          <button id="s-dec" aria-label="减少一节">−</button>
+          <span id="s-count">${m.sections.length}</span>
+          <button id="s-inc" aria-label="增加一节">+</button>
+        </div>
+      </div>
+    </div>
     <div class="field">
       <span class="lab">节次时间</span>
       <div id="s-sections">${secRows}</div>
       <p class="helper">修改后会同步调整课表网格与时间提示。</p>
+    </div>
+    <div class="field">
+      <span class="lab">课前提醒</span>
+      <div class="quick" style="margin-top:2px">
+        <button id="s-remind">设置提醒时间 / 同步到日历</button>
+      </div>
+      <p class="helper">当前：${m.reminder > 0 ? `课前 ${m.reminder} 分钟提醒` : '已关闭'}（导出到系统日历后生效）</p>
     </div>
     <div class="field">
       <span class="lab">数据</span>
@@ -3077,7 +3415,7 @@ function openSettings() {
       <p class="helper">数据只保存在本机浏览器里。换手机或清理浏览器前，记得先导出备份。</p>
     </div>
     <p class="helper" style="text-align:center;margin:14px 0 4px">
-      课程表 v1.0 · 适配 iPhone 17 / iOS 27<br>
+      课程表 v1.1 · 适配 iPhone 17 / iOS 27<br>
       添加到主屏幕即可全屏使用；桌面小组件见 Scriptable 脚本
     </p>`;
 
@@ -3088,6 +3426,52 @@ function openSettings() {
     footer: `<button class="btn primary" id="s-save">完成</button>`,
     onMount(sheet, close) {
       const bodyEl = $('.sheet-body', sheet);
+      let draftSections = m.sections.map((x) => ({ ...x }));
+
+      const rowHtml = (s, i) => `<div class="sec-row">
+        <label>第${i + 1}节</label>
+        <input type="time" data-k="s" data-i="${i}" value="${s.s}">
+        <input type="time" data-k="e" data-i="${i}" value="${s.e}">
+      </div>`;
+
+      const readRows = () => {
+        const rows = $$('#s-sections .sec-row', bodyEl);
+        if (!rows.length) return;
+        draftSections = rows.map((row) => ({
+          s: row.querySelector('[data-k="s"]').value || '08:00',
+          e: row.querySelector('[data-k="e"]').value || '08:45',
+        }));
+      };
+
+      const renderRows = () => {
+        $('#s-sections', bodyEl).innerHTML = draftSections.map(rowHtml).join('');
+        $('#s-count', bodyEl).textContent = String(draftSections.length);
+      };
+
+      const setCount = (delta) => {
+        readRows();
+        const n = clamp(draftSections.length + delta, 6, 16);
+        if (n === draftSections.length) return;
+        if (n < draftSections.length) {
+          const busy = state.courses.filter((c) => Number(c.end) > n || Number(c.start) > n);
+          if (busy.length) {
+            toast(`第 ${n + 1} 节还有 ${busy.length} 门课，先把它们改到前面几节`);
+            return;
+          }
+          draftSections = draftSections.slice(0, n);
+        } else {
+          while (draftSections.length < n) {
+            const last = draftSections[draftSections.length - 1] || { s: '08:00', e: '08:45' };
+            const startAt = minutes(last.e) + 10;
+            draftSections.push({ s: fmtMinutes(startAt), e: fmtMinutes(startAt + 45) });
+          }
+        }
+        renderRows();
+      };
+
+      $('#s-dec', bodyEl).addEventListener('click', () => setCount(-1));
+      $('#s-inc', bodyEl).addEventListener('click', () => setCount(1));
+
       $$('#s-theme button', bodyEl).forEach((btn) => {
         btn.addEventListener('click', () => {
           $$('#s-theme button', bodyEl).forEach((b) => b.classList.toggle('on', b === btn));
@@ -3121,14 +3505,12 @@ function openSettings() {
         render();
         toast('已清空');
       });
+      $('#s-remind', bodyEl).addEventListener('click', () => openReminder());
       $('#s-save', sheet).addEventListener('click', () => {
         const name = $('#s-name', bodyEl).value.trim();
         const start = $('#s-start', bodyEl).value;
-        const rows = $$('#s-sections .sec-row', bodyEl);
-        const sections = rows.map((row) => ({
-          s: row.querySelector('[data-k="s"]').value || '08:00',
-          e: row.querySelector('[data-k="e"]').value || '08:45',
-        }));
+        readRows();
+        const sections = draftSections;
         const bad = sections.some((x) => minutes(x.e) <= minutes(x.s));
         if (bad) {
           toast('有节次的结束时间早于开始时间');
@@ -3149,7 +3531,11 @@ function openSettings() {
 
 /* ---------------- 导出 ---------------- */
 function exportPayload() {
-  return JSON.stringify({ version: 2, app: 'kcb', exportedAt: new Date().toISOString(), meta: state.meta, courses: state.courses }, null, 2);
+  return JSON.stringify(
+    { version: 3, app: 'kcb', exportedAt: new Date().toISOString(), meta: state.meta, courses: state.courses },
+    null,
+    2
+  );
 }
 
 function openExport() {
@@ -3202,6 +3588,95 @@ function openExport() {
   });
 }
 
+/* ---------------- 课前提醒（写入系统日历） ---------------- */
+function openReminder() {
+  const LEADS = [0, 5, 10, 15, 20, 30];
+  const current = Number(state.meta.reminder) || 0;
+  const count = planEvents(state.meta, state.courses).length;
+  const subtitle = () => `当前：${state.meta.reminder > 0 ? `课前 ${state.meta.reminder} 分钟` : '关闭'}`;
+
+  const body = `
+    <div class="field">
+      <span class="lab">提前多久提醒</span>
+      <div class="chips grid3" id="r-leads">
+        ${LEADS.map(
+          (v) => `<button class="chip ${v === current ? 'on' : ''}" data-lead="${v}">${v ? `${v} 分钟` : '关闭'}</button>`
+        ).join('')}
+      </div>
+    </div>
+    <div class="preview" style="margin-top:4px">
+      <h4>为什么不是 App 推送</h4>
+      <p style="margin:0;line-height:1.65;font-size:12px">
+        iPhone 不允许网页在后台定时弹通知（那需要服务器推送）。
+        所以这里把课程写成<b>日历日程</b>，加进系统「日历」后由 iOS 负责提醒 ——
+        锁屏、耳机、手表都会响，也不需要一直开着这个网页。
+      </p>
+    </div>
+    <div class="btn-stack" style="margin-top:12px">
+      <button class="btn primary" id="r-add">添加到系统日历</button>
+      <button class="btn ghost small" id="r-dl">下载 .ics 文件</button>
+    </div>
+    <p class="helper">共 <b>${count}</b> 个日程，按周自动重复到学期末；课程有改动时重新导出一次即可。</p>
+    <p class="helper">iOS 第一次会问「添加全部日程」，确认即可。重复导入会产生重复日程，建议先把旧的「课程表」日历删掉。</p>`;
+
+  openSheet({
+    title: '课前提醒',
+    subtitle: subtitle(),
+    body,
+    footer: `<button class="btn primary" id="r-done">完成</button>`,
+    onMount(sheet, close) {
+      const bodyEl = $('.sheet-body', sheet);
+      const headSub = $('.sheet-head p', sheet);
+
+      $$('#r-leads .chip', bodyEl).forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.meta.reminder = Number(btn.dataset.lead);
+          $$('#r-leads .chip', bodyEl).forEach((b) => b.classList.toggle('on', b === btn));
+          saveState();
+          headSub.textContent = subtitle();
+        });
+      });
+
+      const icsText = () => buildICS(state.meta, state.courses, state.meta.reminder);
+      const fileName = '课程表.ics';
+      const download = () => {
+        const blob = new Blob([icsText()], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.append(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 3000);
+      };
+
+      $('#r-add', bodyEl).addEventListener('click', async () => {
+        if (state.meta.reminder === 0) {
+          toast('提醒已关闭，导入后不会响');
+        }
+        try {
+          const file = new File([icsText()], fileName, { type: 'text/calendar' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], title: '课程表' });
+            return;
+          }
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+        }
+        download();
+        toast('已下载 课程表.ics');
+      });
+
+      $('#r-dl', bodyEl).addEventListener('click', () => {
+        download();
+        toast('已生成 课程表.ics');
+      });
+      $('#r-done', sheet).addEventListener('click', close);
+    },
+  });
+}
+
 /* ---------------- 示例数据 ---------------- */
 function demoState() {
   const meta = {
@@ -3209,6 +3684,7 @@ function demoState() {
     start: '2026-09-07',
     showWeekend: false,
     theme: 'auto',
+    reminder: 10,
     sections: DEFAULT_SECTIONS.map((x) => ({ ...x })),
   };
   const rows = [
@@ -3350,6 +3826,16 @@ function bindEvents() {
     },
     { passive: true }
   );
+
+  // 旋转屏幕 / 窗口尺寸变化时重新计算行高，保证还是一屏
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (!state.courses.length) return;
+      renderBoard({ scrollToNow: false });
+    }, 160);
+  });
 }
 
 /* ---------------- 启动 ---------------- */
@@ -3372,6 +3858,11 @@ function boot() {
   if (!state.meta.sections || !state.meta.sections.length) state.meta.sections = defaultMeta().sections;
   const themeParam = params.get('theme');
   if (themeParam === 'dark' || themeParam === 'light') state.meta.theme = themeParam;
+  // 调试用：?sections=11 临时裁剪节数，方便检查一屏是否放得下
+  const sectionsParam = Number(params.get('sections'));
+  if (sectionsParam >= 6 && sectionsParam <= 16 && sectionsParam !== state.meta.sections.length) {
+    state.meta.sections = state.meta.sections.slice(0, sectionsParam);
+  }
   viewWeek = clamp(currentWeek(), 1, maxWeek());
   const weekParam = Number(params.get('week'));
   if (weekParam > 0) viewWeek = clamp(weekParam, 1, maxWeek());
@@ -3385,6 +3876,7 @@ function boot() {
   else if (open === 'import') openImport();
   else if (open === 'add') openEditor(null);
   else if (open === 'export') openExport();
+  else if (open === 'reminder') openReminder();
   else if (state.courses[0] && open === 'edit') openEditor(state.courses[0]);
 
   if (params.get('debug')) {
@@ -3393,7 +3885,7 @@ function boot() {
     const root = getComputedStyle(document.documentElement);
     document.title = `T=${document.documentElement.dataset.theme} BG=${cs && cs.backgroundColor} PANEL=${root
       .getPropertyValue('--panel')
-      .trim()} BF=${cs && cs.backdropFilter} W=${innerWidth}`;
+      .trim()} BF=${cs && cs.backdropFilter} W=${innerWidth} B=${$('#board').scrollHeight}/${$('#board').clientHeight}`;
   }
 
   if (params.get('export')) {
@@ -3407,25 +3899,60 @@ function boot() {
   if (params.get('selftest')) {
     const log = [];
     const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const importText = async (text, mode = 'replace') => {
+      openImport();
+      await wait(120);
+      const ta = $('#imp-text');
+      ta.value = text;
+      ta.dispatchEvent(new Event('input'));
+      await wait(700);
+      const parsedOk = !$('#imp-do').disabled;
+      const radio = $(`input[name="impmode"][value="${mode}"]`);
+      if (radio) radio.checked = true;
+      $('#imp-do').click();
+      await wait(600);
+      return parsedOk;
+    };
     (async () => {
       try {
-        openImport();
-        await wait(120);
-        const ta = $('#imp-text');
-        ta.value = SAMPLE_HTML;
-        ta.dispatchEvent(new Event('input'));
-        await wait(700);
-        log.push(`parsed=${!$('#imp-do').disabled}`);
-        $('#imp-do').click();
-        await wait(600);
+        // 旧版（v2）备份：courses + meta 都要能恢复
+        const backup = JSON.stringify({
+          version: 2,
+          meta: {
+            name: '备份学期',
+            start: '2026-09-07',
+            showWeekend: false,
+            theme: 'auto',
+            reminder: 15,
+            sections: Array.from({ length: 11 }, (_, i) => ({ s: `${String(8 + i).padStart(2, "0")}:00`, e: `${String(8 + i).padStart(2, "0")}:45` })),
+          },
+          courses: [
+            { id: 'b1', name: '备份高数', day: 1, start: 1, end: 2, weeks: [1, 2, 3], room: 'A101', hue: 214 },
+            { id: 'b2', name: '备份英语', day: 3, start: 3, end: 4, weeks: [1, 2, 3], room: 'B202', hue: 30 },
+          ],
+        });
+        log.push(`backupParsed=${await importText(backup)}`);
+        log.push(`meta=${state.meta.sections.length}节/提醒${state.meta.reminder}/${state.meta.name}`);
+        log.push(`backupCourses=${state.courses.length}`);
+
+        log.push(`htmlParsed=${await importText(SAMPLE_HTML)}`);
         log.push(`imported=${state.courses.length}`);
         log.push(`blocks=${$$('.course').length}`);
+
         openEditor(null);
         await wait(120);
         $('#f-name').value = '自测课程';
         $('#f-save').click();
         await wait(300);
         log.push(`added=${state.courses.length}`);
+        openSettings();
+        await wait(200);
+        const secBefore = state.meta.sections.length;
+        $('#s-dec').click();
+        await wait(60);
+        $('#s-save').click();
+        await wait(320);
+        log.push(`sections=${secBefore}->${state.meta.sections.length}`);
         const before = viewWeek;
         $('#btnNext').click();
         await wait(200);
