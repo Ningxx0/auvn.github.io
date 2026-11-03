@@ -1,0 +1,3465 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no" />
+    <title>课程表</title>
+    <meta name="description" content="为 iPhone 优化的课程表：支持从教务系统导入、周次切换、桌面小组件。" />
+    <meta name="theme-color" content="#f3f4f9" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="课程表" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="apple-touch-icon" href="data:image/png;base64,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" />
+    <link rel="icon" type="image/png" href="data:image/png;base64,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" />
+    <style>
+      /* ============ 设计变量 ============ */
+:root {
+  --bg: #f3f4f9;
+  --text: #0f1222;
+  --text2: #565d73;
+  --text3: #8b92a6;
+  --line: rgba(16, 20, 40, 0.075);
+  --line-2: rgba(16, 20, 40, 0.13);
+  --panel: rgba(255, 255, 255, 0.6);
+  --panel-strong: rgba(255, 255, 255, 0.86);
+  --panel-solid: #ffffff;
+  --sheet: rgba(250, 251, 254, 0.94);
+  --field: rgba(120, 130, 160, 0.1);
+  --accent: #4f46e5;
+  --accent-2: #8b5cf6;
+  --accent-soft: rgba(79, 70, 229, 0.11);
+  --danger: #e0342b;
+  --rowh: 54px;
+  --axisw: 34px;
+  --radius: 24px;
+  --shadow-lg: 0 30px 60px -42px rgba(18, 22, 55, 0.55);
+  --shadow-card: 0 10px 24px -18px rgba(18, 22, 55, 0.45);
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #07080d;
+  --text: #f1f3fa;
+  --text2: #a1a8bd;
+  --text3: #6d7488;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.14);
+  --panel: rgba(24, 26, 36, 0.58);
+  --panel-strong: rgba(20, 22, 30, 0.9);
+  --panel-solid: #1c1f2a;
+  --sheet: rgba(20, 22, 30, 0.96);
+  --field: rgba(255, 255, 255, 0.07);
+  --accent: #8b8bff;
+  --accent-2: #c084fc;
+  --accent-soft: rgba(139, 139, 255, 0.16);
+  --danger: #ff6961;
+  --shadow-lg: 0 30px 60px -40px #000;
+  --shadow-card: 0 12px 26px -18px #000;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 背景光晕 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  background:
+    radial-gradient(46% 32% at 12% 2%, rgba(129, 140, 248, 0.42) 0%, transparent 60%),
+    radial-gradient(42% 30% at 92% 8%, rgba(244, 114, 182, 0.3) 0%, transparent 62%),
+    radial-gradient(50% 36% at 78% 88%, rgba(56, 189, 248, 0.24) 0%, transparent 66%),
+    radial-gradient(40% 30% at 18% 92%, rgba(167, 139, 250, 0.24) 0%, transparent 68%);
+  filter: blur(6px);
+}
+
+[data-theme='dark'] body::before {
+  background:
+    radial-gradient(46% 32% at 12% 2%, rgba(79, 70, 229, 0.42) 0%, transparent 60%),
+    radial-gradient(42% 30% at 92% 8%, rgba(190, 24, 93, 0.24) 0%, transparent 62%),
+    radial-gradient(50% 36% at 78% 90%, rgba(14, 116, 144, 0.26) 0%, transparent 66%),
+    radial-gradient(40% 30% at 18% 92%, rgba(109, 40, 217, 0.26) 0%, transparent 68%);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+.app {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 14px;
+}
+
+/* ============ 顶部 ============ */
+.topbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 16px);
+}
+
+.kicker {
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.07em;
+  color: var(--text3);
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 46vw;
+}
+
+h1 {
+  margin: 0;
+  font-size: 31px;
+  line-height: 1.02;
+  font-weight: 760;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+}
+
+.top-actions {
+  display: flex;
+  gap: 8px;
+  flex: none;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  color: var(--text2);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.16s ease, background 0.2s ease;
+}
+
+.icon-btn:active {
+  transform: scale(0.93);
+  background: var(--field);
+}
+
+.icon-btn svg {
+  width: 19px;
+  height: 19px;
+}
+
+/* 周切换 */
+.subbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 13px;
+}
+
+.weeknav {
+  display: flex;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 3px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.weeknav button {
+  width: 30px;
+  height: 30px;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  color: var(--text2);
+  transition: background 0.16s ease;
+}
+
+.weeknav button:active {
+  background: var(--field);
+}
+
+.weeknav svg {
+  width: 15px;
+  height: 15px;
+}
+
+.range {
+  padding: 0 5px;
+  font-size: 12.5px;
+  font-weight: 640;
+  color: var(--text2);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.today-btn {
+  margin-left: auto;
+  height: 37px;
+  padding: 0 14px;
+  border-radius: 13px;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--accent);
+  background: var(--accent-soft);
+  transition: opacity 0.2s ease, transform 0.16s ease;
+}
+
+.today-btn:active {
+  transform: scale(0.95);
+}
+
+.today-btn[hidden] {
+  visibility: hidden;
+  display: block;
+  opacity: 0;
+}
+
+/* ============ 今日条 ============ */
+.todaycard {
+  position: relative;
+  margin-top: 11px;
+  padding: 9px 10px 10px;
+  border-radius: 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  box-shadow: var(--shadow-card);
+  flex: none;
+}
+
+.todaycard[hidden] {
+  display: none;
+}
+
+/* 右侧渐隐，提示可以横向滑动 */
+.todaycard::after {
+  content: '';
+  position: absolute;
+  right: 7px;
+  top: 30px;
+  bottom: 7px;
+  width: 16px;
+  border-radius: 0 12px 12px 0;
+  background: linear-gradient(90deg, transparent, var(--panel-strong) 78%);
+  pointer-events: none;
+}
+
+.tc-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--text3);
+  letter-spacing: 0.02em;
+  margin-bottom: 7px;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34c759;
+  box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.16);
+}
+
+.tc-count {
+  margin-left: auto;
+  color: var(--text3);
+  font-weight: 600;
+}
+
+.tc-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 1px;
+}
+
+.tc-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.tchip {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 9px;
+  border-radius: 10px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: hsl(var(--h) 55% 32%);
+  background: hsl(var(--h) 88% 95%);
+  border: 1px solid hsl(var(--h) 70% 89%);
+  white-space: nowrap;
+  max-width: 62vw;
+}
+
+[data-theme='dark'] .tchip {
+  color: hsl(var(--h) 75% 86%);
+  background: hsl(var(--h) 40% 22%);
+  border-color: hsl(var(--h) 35% 30%);
+}
+
+.tchip b {
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tchip span {
+  opacity: 0.72;
+  font-variant-numeric: tabular-nums;
+  font-size: 10.5px;
+}
+
+.tchip.is-now {
+  color: #fff;
+  background: var(--accent);
+  border-color: transparent;
+  box-shadow: 0 6px 14px -8px var(--accent);
+}
+
+.tchip.is-past {
+  opacity: 0.55;
+}
+
+.tc-empty {
+  font-size: 12px;
+  color: var(--text2);
+  padding: 2px 0 1px;
+}
+
+/* ============ 课表主体 ============ */
+.board {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  margin-top: 10px;
+  margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+  border-radius: var(--radius);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  box-shadow: var(--shadow-lg);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.board-inner {
+  min-width: 100%;
+  padding: 0 7px 12px;
+}
+
+.grid-head {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  display: flex;
+  padding-top: 7px;
+  background: var(--panel-strong);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.grid-head::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.gh-axis {
+  width: var(--axisw);
+  flex: 0 0 var(--axisw);
+}
+
+.gh-days {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.gh-day {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+  padding: 5px 0 7px;
+  border-radius: 12px;
+  position: relative;
+}
+
+.gh-name {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 620;
+  color: var(--text3);
+  letter-spacing: 0.02em;
+}
+
+.gh-date {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 680;
+  color: var(--text2);
+  font-variant-numeric: tabular-nums;
+  margin-top: 1px;
+}
+
+.gh-day.is-today .gh-name {
+  color: var(--accent);
+}
+
+.gh-day.is-today .gh-date {
+  color: var(--accent);
+}
+
+.gh-day.is-today::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 1px;
+  width: 16px;
+  height: 2.5px;
+  border-radius: 2px;
+  transform: translateX(-50%);
+  background: var(--accent);
+}
+
+.grid-body {
+  position: relative;
+  display: flex;
+  padding-top: 2px;
+}
+
+.axis {
+  width: var(--axisw);
+  flex: 0 0 var(--axisw);
+  position: sticky;
+  left: 0;
+  z-index: 4;
+  background: linear-gradient(90deg, var(--panel-strong) 62%, transparent 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.axis-sec {
+  height: var(--rowh);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 2px;
+  gap: 1px;
+}
+
+.axis-num {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--text3);
+  line-height: 1;
+  opacity: 0.9;
+}
+
+.axis-time {
+  font-size: 8.5px;
+  font-weight: 550;
+  color: var(--text3);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  opacity: 0.75;
+}
+
+.axis-brk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8.5px;
+  font-weight: 600;
+  color: var(--text3);
+  opacity: 0.65;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.1em;
+}
+
+.cols {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.day {
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  border-left: 1px solid var(--line);
+}
+
+.day:last-child {
+  border-right: 1px solid var(--line);
+}
+
+.day.is-today {
+  background: linear-gradient(180deg, var(--accent-soft) 0%, transparent 220px);
+}
+
+.hline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 课程块 */
+.course {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  border-radius: 13px;
+  padding: 5px 6px 5px 9px;
+  overflow: hidden;
+  text-align: left;
+  border: 1px solid hsl(var(--h) 62% 87%);
+  background: linear-gradient(168deg, hsl(var(--h) 92% 97%) 0%, hsl(var(--h) 80% 92.5%) 100%);
+  color: hsl(var(--h) 52% 29%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 8px 16px -13px hsl(var(--h) 65% 35% / 0.65);
+  transition: transform 0.16s ease, box-shadow 0.2s ease;
+  animation: blockIn 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 18ms);
+}
+
+.course::before {
+  content: '';
+  position: absolute;
+  left: 3.5px;
+  top: 8px;
+  bottom: 8px;
+  width: 2.5px;
+  border-radius: 3px;
+  background: hsl(var(--h) 68% 60%);
+  opacity: 0.85;
+}
+
+[data-theme='dark'] .course {
+  background: linear-gradient(168deg, hsl(var(--h) 32% 22%) 0%, hsl(var(--h) 34% 17.5%) 100%);
+  border-color: hsl(var(--h) 28% 30%);
+  color: hsl(var(--h) 72% 87%);
+  box-shadow:
+    inset 0 1px 0 hsl(var(--h) 40% 50% / 0.28),
+    0 8px 16px -12px #000;
+}
+
+.course:active {
+  transform: scale(0.965);
+}
+
+.course.is-past {
+  opacity: 0.48;
+  filter: saturate(0.75);
+}
+
+.course.is-now {
+  box-shadow:
+    0 0 0 1.6px hsl(var(--h) 70% 55%),
+    0 10px 20px -12px hsl(var(--h) 65% 40% / 0.8);
+}
+
+.course-name {
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.course-room {
+  margin-top: 3px;
+  font-size: 9px;
+  line-height: 1.2;
+  font-weight: 550;
+  opacity: 0.75;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 显示 6-7 列时压缩信息，优先保证课程名可读 */
+.is-dense .course {
+  padding: 4px 4px 4px 8px;
+  border-radius: 11px;
+}
+
+.is-dense .course::before {
+  left: 3px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+}
+
+.is-dense .course-name {
+  font-size: 9.8px;
+  line-height: 1.16;
+  -webkit-line-clamp: 4;
+}
+
+.is-dense .course-room {
+  display: none;
+}
+
+.is-dense .gh-name {
+  font-size: 9.5px;
+}
+
+.is-dense .gh-date {
+  font-size: 11.5px;
+}
+
+.is-dense .axis-time {
+  font-size: 8px;
+}
+
+.course-tag {
+  margin-top: auto;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  opacity: 0.55;
+}
+
+/* 时间指示线 */
+.nowline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 2px solid #ff453a;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.nowline::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: -5.5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff453a;
+  box-shadow: 0 0 0 3px rgba(255, 69, 58, 0.18);
+}
+
+/* 空状态 */
+.empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 28px 26px;
+  z-index: 9;
+}
+
+.empty-art {
+  width: 108px;
+  height: 108px;
+  border-radius: 32px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(160deg, rgba(99, 102, 241, 0.16), rgba(236, 72, 153, 0.12));
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 18px;
+}
+
+.empty-art svg {
+  width: 52px;
+  height: 52px;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+.empty h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 720;
+  letter-spacing: -0.01em;
+}
+
+.empty p {
+  margin: 0 0 20px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text2);
+  max-width: 260px;
+}
+
+.empty-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+  max-width: 250px;
+}
+
+/* FAB */
+.fab {
+  position: absolute;
+  right: 20px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 26px);
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(160deg, var(--accent), var(--accent-2));
+  box-shadow: 0 14px 28px -12px var(--accent), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  z-index: 20;
+  transition: transform 0.16s ease;
+}
+
+.fab:active {
+  transform: scale(0.92);
+}
+
+.fab svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ============ 弹层 ============ */
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(6, 8, 18, 0.42);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.26s ease;
+}
+
+.scrim.in {
+  opacity: 1;
+}
+
+.sheet {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 51;
+  width: 100%;
+  max-width: 520px;
+  transform: translate(-50%, 100%);
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  background: var(--sheet);
+  backdrop-filter: blur(30px) saturate(160%);
+  -webkit-backdrop-filter: blur(30px) saturate(160%);
+  border-radius: 28px 28px 0 0;
+  border-top: 1px solid var(--line-2);
+  box-shadow: 0 -30px 60px -30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  max-height: 91dvh;
+}
+
+.sheet.in {
+  transform: translate(-50%, 0);
+}
+
+.grabber {
+  width: 38px;
+  height: 4.5px;
+  border-radius: 4px;
+  background: var(--line-2);
+  margin: 8px auto 0;
+  flex: none;
+}
+
+.sheet-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px 8px;
+  flex: none;
+}
+
+.sheet-head h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 740;
+  letter-spacing: -0.02em;
+}
+
+.sheet-head p {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: var(--text2);
+  line-height: 1.45;
+}
+
+.x-btn {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--field);
+  color: var(--text2);
+}
+
+.x-btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.sheet-body {
+  overflow-y: auto;
+  padding: 6px 20px 4px;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.sheet-foot {
+  flex: none;
+  display: flex;
+  gap: 10px;
+  padding: 12px 20px calc(env(safe-area-inset-bottom, 0px) + 14px);
+  background: linear-gradient(180deg, transparent, var(--sheet) 32%);
+}
+
+/* ============ 表单控件 ============ */
+.field {
+  display: block;
+  background: var(--field);
+  border-radius: 14px;
+  padding: 9px 13px 10px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.field:focus-within {
+  border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+  background: var(--field);
+}
+
+.field > .lab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10.5px;
+  font-weight: 660;
+  letter-spacing: 0.05em;
+  color: var(--text3);
+  margin-bottom: 1px;
+  text-transform: uppercase;
+}
+
+.field input[type='text'],
+.field input[type='date'],
+.field input[type='time'],
+.field select,
+.field textarea {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font-size: 16px; /* iOS 上小于 16px 会在聚焦时放大页面 */
+  font-weight: 550;
+  padding: 3px 0;
+  color: var(--text);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text3);
+  font-weight: 450;
+}
+
+/* 时间选择器自带的图标在桌面端会重复占位，iOS 本身没有，直接隐藏 */
+.field input[type='time']::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.field select {
+  padding-right: 18px;
+  background-image: linear-gradient(45deg, transparent 50%, var(--text3) 50%),
+    linear-gradient(135deg, var(--text3) 50%, transparent 50%);
+  background-position: calc(100% - 8px) 52%, calc(100% - 3px) 52%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.field textarea {
+  min-height: 152px;
+  resize: vertical;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-weight: 400;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.row2 .field {
+  margin-bottom: 10px;
+}
+
+.helper {
+  font-size: 11px;
+  color: var(--text3);
+  line-height: 1.5;
+  margin: 6px 2px 0;
+}
+
+.helper b {
+  color: var(--text2);
+  font-weight: 650;
+}
+
+/* chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 7px;
+}
+
+.chip {
+  min-width: 33px;
+  height: 33px;
+  padding: 0 9px;
+  border-radius: 10px;
+  background: rgba(127, 133, 155, 0.14);
+  font-size: 13px;
+  font-weight: 620;
+  color: var(--text2);
+  display: inline-grid;
+  place-items: center;
+  transition: transform 0.12s ease, background 0.16s ease, color 0.16s ease;
+}
+
+.chip:active {
+  transform: scale(0.92);
+}
+
+.chip.on {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 14px -8px var(--accent);
+}
+
+.chips.weeks {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 6px;
+}
+
+.chips.weeks .chip {
+  min-width: 0;
+  height: 30px;
+  font-size: 12px;
+  border-radius: 9px;
+  padding: 0;
+}
+
+.chips.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.chips.days .chip {
+  min-width: 0;
+  padding: 0;
+  font-size: 12.5px;
+}
+
+.quick {
+  display: flex;
+  gap: 6px;
+  margin-top: 9px;
+  flex-wrap: wrap;
+}
+
+.quick button {
+  font-size: 11px;
+  font-weight: 620;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 5px 9px;
+  border-radius: 8px;
+}
+
+/* 颜色 */
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 9px;
+  justify-items: center;
+  margin-top: 10px;
+}
+
+.sw {
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  background: hsl(var(--h) 70% 58%);
+  border: 2.5px solid transparent;
+  transition: transform 0.14s ease;
+}
+
+.sw:active {
+  transform: scale(0.9);
+}
+
+.sw.on {
+  border-color: var(--panel-solid);
+  box-shadow: 0 0 0 2px hsl(var(--h) 70% 58%);
+}
+
+/* 分段控件 */
+.seg {
+  display: flex;
+  background: rgba(127, 133, 155, 0.14);
+  border-radius: 12px;
+  padding: 3px;
+  margin-top: 7px;
+}
+
+.seg button {
+  flex: 1;
+  height: 31px;
+  border-radius: 9px;
+  font-size: 12.5px;
+  font-weight: 620;
+  color: var(--text2);
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.seg button.on {
+  background: var(--panel-solid);
+  color: var(--text);
+  box-shadow: 0 2px 7px rgba(10, 14, 30, 0.1);
+}
+
+/* 开关行 */
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 3px;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--line);
+}
+
+.switch-row:last-of-type {
+  border-bottom: 0;
+}
+
+.switch-row small {
+  display: block;
+  font-size: 11px;
+  font-weight: 450;
+  color: var(--text3);
+  margin-top: 2px;
+}
+
+input.switch {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  width: 47px;
+  height: 28.5px;
+  border-radius: 999px;
+  background: rgba(127, 133, 155, 0.3);
+  position: relative;
+  transition: background 0.22s ease;
+  cursor: pointer;
+}
+
+input.switch::after {
+  content: '';
+  position: absolute;
+  top: 2.5px;
+  left: 2.5px;
+  width: 23.5px;
+  height: 23.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
+  transition: transform 0.22s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+input.switch:checked {
+  background: var(--accent);
+}
+
+input.switch:checked::after {
+  transform: translateX(18.5px);
+}
+
+/* 按钮 */
+.btn {
+  flex: 1;
+  height: 48px;
+  border-radius: 15px;
+  font-size: 15px;
+  font-weight: 660;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: transform 0.14s ease, opacity 0.2s ease;
+}
+
+.btn:active {
+  transform: scale(0.975);
+}
+
+.btn.primary {
+  background: linear-gradient(160deg, var(--accent), var(--accent-2));
+  color: #fff;
+  box-shadow: 0 12px 24px -14px var(--accent);
+}
+
+.btn.ghost {
+  background: var(--field);
+  color: var(--text);
+}
+
+.btn.danger {
+  background: rgba(224, 52, 43, 0.12);
+  color: var(--danger);
+}
+
+.btn.small {
+  height: 40px;
+  font-size: 13.5px;
+  border-radius: 13px;
+}
+
+.btn[disabled] {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.btn-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+/* 导入预览 */
+.preview {
+  margin-top: 12px;
+  border-radius: 14px;
+  background: var(--field);
+  padding: 11px 12px;
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.55;
+}
+
+.preview[hidden] {
+  display: none;
+}
+
+.preview h4 {
+  margin: 0 0 7px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.preview ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.preview li {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.preview li i {
+  font-style: normal;
+  color: var(--text3);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  flex: none;
+}
+
+.preview .warn {
+  margin-top: 8px;
+  color: #c26a00;
+  font-size: 11.5px;
+}
+
+[data-theme='dark'] .preview .warn {
+  color: #ffb340;
+}
+
+.preview .ok {
+  color: #1a9c4b;
+}
+
+[data-theme='dark'] .preview .ok {
+  color: #4ade80;
+}
+
+/* 分段单选（导入模式） */
+.radio-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.radio-row label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 11px;
+  border-radius: 12px;
+  background: var(--field);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text2);
+}
+
+.radio-row input {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+}
+
+/* 设置里的节次时间行 */
+.sec-row {
+  display: grid;
+  grid-template-columns: 38px 1fr 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+}
+
+.sec-row:not(:last-child) {
+  border-bottom: 1px solid var(--line);
+}
+
+.sec-row label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text3);
+}
+
+.sec-row input {
+  width: 100%;
+  border: 0;
+  background: rgba(127, 133, 155, 0.12);
+  border-radius: 9px;
+  padding: 7px 8px;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  outline: none;
+}
+
+/* toast */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
+  transform: translate(-50%, 12px);
+  z-index: 80;
+  background: rgba(18, 20, 30, 0.92);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  backdrop-filter: blur(10px);
+  max-width: 78vw;
+  text-align: center;
+}
+
+.toast.in {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* 滚动条 */
+.board::-webkit-scrollbar,
+.sheet-body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* 动画 */
+@keyframes blockIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* 截图 / 静态预览用 */
+[data-still] *,
+[data-still] *::before,
+[data-still] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* 启动时避免主题切换产生过渡动画 */
+[data-booting] *,
+[data-booting] *::before,
+[data-booting] *::after {
+  transition: none !important;
+}
+
+/* 无 backdrop-filter 兜底 */
+@supports not (backdrop-filter: blur(2px)) {
+  .board,
+  .todaycard,
+  .icon-btn,
+  .sheet {
+    background: var(--panel-solid);
+  }
+  .grid-head,
+  .axis {
+    background: var(--panel-solid);
+  }
+}
+
+/* 大屏（iPad）让它像一张卡片 */
+@media (min-width: 700px) {
+  body {
+    align-items: center;
+  }
+  .app {
+    height: min(940px, 100dvh);
+    padding: 0 18px 18px;
+    border-radius: 40px;
+  }
+  .topbar {
+    padding-top: 30px;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div>
+          <div class="kicker" id="kicker">我的课表</div>
+          <h1 id="weekTitle">第 1 周</h1>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="btnImport" aria-label="导入课表" title="导入课表">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 4v10m0 0-4-4m4 4 4-4" />
+              <path d="M4 16v2.4A1.6 1.6 0 0 0 5.6 20h12.8a1.6 1.6 0 0 0 1.6-1.6V16" />
+            </svg>
+          </button>
+          <button class="icon-btn" id="btnSettings" aria-label="设置" title="设置">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+              <path d="M4 7h9M19 7h1M4 17h1M11 17h9" />
+              <circle cx="16" cy="7" r="2.3" />
+              <circle cx="8" cy="17" r="2.3" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="subbar">
+        <div class="weeknav">
+          <button id="btnPrev" aria-label="上一周">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 5.5 8 12l6.5 6.5" />
+            </svg>
+          </button>
+          <span class="range" id="range">—</span>
+          <button id="btnNext" aria-label="下一周">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.5 5.5 16 12l-6.5 6.5" />
+            </svg>
+          </button>
+        </div>
+        <button class="today-btn" id="btnToday">回到本周</button>
+      </div>
+
+      <section class="todaycard" id="todayCard" aria-label="今日课程">
+        <div class="tc-head" id="tcHead"></div>
+        <div class="tc-scroll" id="tcScroll"></div>
+      </section>
+
+      <main class="board" id="board" aria-label="课程表"></main>
+
+      <button class="fab" id="btnAdd" aria-label="添加课程">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+      </button>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module">
+      /* 课程表解析器：教务系统 HTML / CSV / JSON / 纯文本 → 标准课程对象
+ * 无任何依赖，浏览器与 Node 均可使用。
+ */
+
+const DAY_NAMES = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+
+const DAY_CHAR = {
+  一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 日: 7, 天: 7, 七: 7,
+  1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7,
+};
+
+function toHalfWidth(input) {
+  // 只转换数字、字母与半角标点，保留中文全角括号等，避免破坏课程名
+  return String(input == null ? '' : input)
+    .replace(/[\uFF10-\uFF19\uFF21-\uFF3A\uFF41-\uFF5A\uFF1A\uFF0C\uFF1B\uFF0E\uFF5E\uFF0D\uFF0B\uFF1D\uFF20]/g, (c) =>
+      String.fromCharCode(c.charCodeAt(0) - 0xfee0)
+    )
+    .replace(/\u3000/g, ' ');
+}
+
+function htmlToText(html) {
+  let s = String(html == null ? '' : html);
+  s = s.replace(/<br\s*\/?>/gi, '\n');
+  s = s.replace(/<\/(p|div|li|tr|h[1-6])>/gi, '\n');
+  s = s.replace(/<script[\s\S]*?<\/script>/gi, '');
+  s = s.replace(/<style[\s\S]*?<\/style>/gi, '');
+  s = s.replace(/<[^>]+>/g, '');
+  s = s
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&amp;/gi, '&')
+    .replace(/&#(\d+);/g, (_, d) => String.fromCharCode(Number(d)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)));
+  s = toHalfWidth(s);
+  return s
+    .split('\n')
+    .map((line) => line.replace(/[\t\u00a0]+/g, ' ').replace(/\s+/g, ' ').trim())
+    .filter(Boolean)
+    .join('\n');
+}
+
+/** 解析周次文本：1-16周 / 1~8,10~16 / 1-16单周 / 第3-15周(双) */
+function parseWeeks(raw, max = 32) {
+  if (raw == null || raw === '') return [];
+  const s = toHalfWidth(raw).toLowerCase();
+  const single = /单/.test(s) && !/双/.test(s);
+  const double = /双/.test(s) && !/单/.test(s);
+  const every = /全|每周|每星期|all|every/.test(s);
+  const weeks = new Set();
+
+  const ranges = [];
+  const rangeRe = /(\d{1,2})\s*(?:-|~|至|到|\u2013|\u2014)\s*(\d{1,2})/g;
+  let m;
+  while ((m = rangeRe.exec(s))) {
+    const a = Number(m[1]);
+    const b = Number(m[2]);
+    ranges.push([m.index, m.index + m[0].length]);
+    if (a >= 1 && b >= a && b <= max) {
+      for (let i = a; i <= b; i += 1) weeks.add(i);
+    }
+  }
+  const numRe = /\d{1,2}/g;
+  while ((m = numRe.exec(s))) {
+    if (ranges.some(([a, b]) => m.index >= a && m.index < b)) continue;
+    const n = Number(m[0]);
+    if (n >= 1 && n <= max) weeks.add(n);
+  }
+  if (every && weeks.size === 0) for (let i = 1; i <= max; i += 1) weeks.add(i);
+
+  let out = [...weeks].sort((a, b) => a - b);
+  if (single) out = out.filter((n) => n % 2 === 1);
+  if (double) out = out.filter((n) => n % 2 === 0);
+  return out;
+}
+
+/** 把周次数组压成可读文本：1-16, 18 */
+function formatWeeks(weeks) {
+  const list = [...new Set(weeks)].sort((a, b) => a - b);
+  if (!list.length) return '';
+  const parts = [];
+  let start = list[0];
+  let prev = list[0];
+  for (let i = 1; i < list.length; i += 1) {
+    if (list[i] === prev + 1) {
+      prev = list[i];
+      continue;
+    }
+    parts.push(start === prev ? `${start}` : `${start}-${prev}`);
+    start = list[i];
+    prev = list[i];
+  }
+  parts.push(start === prev ? `${start}` : `${start}-${prev}`);
+  return `${parts.join(', ')} 周`;
+}
+
+const WEEK_TOKEN_RE =
+  /(?:第\s*)?((?:\d{1,2}(?:\s*[-~\u2013\u2014至到]\s*\d{1,2})?)(?:\s*[,、]\s*\d{1,2}(?:\s*[-~\u2013\u2014至到]\s*\d{1,2})?)*)\s*周(?:\s*[（(【\[]?\s*(单|双)?\s*周?\s*[）)】\]])?/;
+
+function looksLikeRoom(text) {
+  const s = String(text).replace(/\s/g, '');
+  if (!s || s.length > 24) return false;
+  if (/^[（(【\[]/.test(s)) return false;
+  if (/[座栋]|教室|上课地点|机房|报告厅|阶梯教室|实验(室|中心)/.test(s)) return true;
+  const hasBuilding = /(楼|馆|场|室|中心|校区|机房|实验|教[一二三四五六七八九十\d]?)/.test(s);
+  const hasNumber = /\d{2,4}/.test(s);
+  if (hasBuilding && hasNumber) return true;
+  if (/(楼|馆|场|室|中心)$/.test(s)) return true;
+  if (/^[A-Za-z]?\d{1,2}[-—]\d{2,4}$/.test(s)) return true;
+  if (/^[A-Za-z]\d{2,4}$/.test(s)) return true;
+  return false;
+}
+
+function looksLikeTeacher(text) {
+  const s = text.trim();
+  if (!s || s.length > 24) return false;
+  if (/\d/.test(s)) return false;
+  if (looksLikeRoom(s)) return false;
+  if (/^[\u4e00-\u9fa5]{2,4}(?:[、,，/\s]+[\u4e00-\u9fa5]{2,4}){0,3}$/.test(s)) return true;
+  if (/^[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2}$/.test(s)) return true;
+  return false;
+}
+
+/**
+ * 解析单个课程单元格文本。
+ * 支持：
+ *   高等数学A(1)\n1-16周\n李明\n教三-301
+ *   高等数学A(1) 李明 1-16周 教三-301
+ */
+function parseCourseCell(raw) {
+  const text = htmlToText(raw);
+  const result = { name: '', teacher: '', room: '', weeksText: '', weeks: [], note: '' };
+  if (!text) return result;
+
+  const rest = [];
+  const lines = text.split('\n');
+  for (const line of lines) {
+    const m = line.match(WEEK_TOKEN_RE);
+    if (m) {
+      if (!result.weeksText) {
+        result.weeksText = m[0].trim();
+        result.weeks = parseWeeks(m[0]);
+      }
+      const cleaned = (line.slice(0, m.index) + ' ' + line.slice(m.index + m[0].length))
+        .replace(/\s+/g, ' ')
+        .replace(/^[\s（(【\[]+|[\s）)】\]]+$/g, '')
+        .trim();
+      if (cleaned) rest.push(cleaned);
+      continue;
+    }
+    rest.push(line);
+  }
+
+  // 带标签的字段优先
+  const pending = [];
+  for (const line of rest) {
+    const labelled = line.match(/^(课程名称|课程|教师|老师|任课教师|地点|教室|上课地点|备注)\s*[:：]\s*(.+)$/);
+    if (labelled) {
+      const value = labelled[2].trim();
+      const key = labelled[1];
+      if (/课程/.test(key) && !result.name) result.name = value;
+      else if (/^教/.test(key) || /老师/.test(key)) result.teacher = result.teacher || value;
+      else if (/地点|教室/.test(key)) result.room = result.room || value;
+      else result.note = result.note ? `${result.note} ${value}` : value;
+      continue;
+    }
+    pending.push(line);
+  }
+
+  if (pending.length === 1) {
+    const tokens = pending[0].split(' ').filter(Boolean);
+    if (tokens.length > 1) {
+      const head = [];
+      for (let i = tokens.length - 1; i >= 0; i -= 1) {
+        const tk = tokens[i];
+        if (!result.room && looksLikeRoom(tk)) {
+          result.room = tk;
+          continue;
+        }
+        if (!result.teacher && looksLikeTeacher(tk) && i > 0) {
+          result.teacher = tk;
+          continue;
+        }
+        head.unshift(tk);
+      }
+      pending.length = 0;
+      pending.push(head.join(' '));
+    }
+  }
+
+  for (const line of pending) {
+    if (!result.name) {
+      result.name = line;
+      continue;
+    }
+    if (!result.room && looksLikeRoom(line)) {
+      result.room = line;
+      continue;
+    }
+    if (!result.teacher && looksLikeTeacher(line)) {
+      result.teacher = line;
+      continue;
+    }
+    if (!result.room && line.length <= 18 && !/周/.test(line)) {
+      result.room = line;
+      continue;
+    }
+    result.note = result.note ? `${result.note} ${line}` : line;
+  }
+
+  result.name = (result.name || '')
+    .replace(/[（(]\s*[)）]/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .replace(/^[,，、;；:：\-—]+/, '')
+    .trim();
+  if (!result.name && result.note) {
+    result.name = result.note.split(' ')[0].slice(0, 20);
+    result.note = '';
+  }
+  return result;
+}
+
+/* ---------------- 表格解析 ---------------- */
+
+function parseTableRows(tableHtml) {
+  const rows = [];
+  const trRe = /<tr\b[^>]*>([\s\S]*?)<\/tr>/gi;
+  let tr;
+  while ((tr = trRe.exec(tableHtml))) {
+    const cells = [];
+    const cellRe = /<(td|th)\b([^>]*)>([\s\S]*?)<\/\1>/gi;
+    let td;
+    while ((td = cellRe.exec(tr[1]))) {
+      const attrs = td[2] || '';
+      const rowspan = Number((/rowspan\s*=\s*["']?(\d+)/i.exec(attrs) || [])[1] || 1);
+      const colspan = Number((/colspan\s*=\s*["']?(\d+)/i.exec(attrs) || [])[1] || 1);
+      cells.push({
+        rowspan: Math.max(1, rowspan),
+        colspan: Math.max(1, colspan),
+        text: htmlToText(td[3]),
+      });
+    }
+    if (cells.length) rows.push(cells);
+  }
+  return rows;
+}
+
+function buildGrid(rows) {
+  const grid = [];
+  const occupied = new Set();
+  rows.forEach((cells, r) => {
+    if (!grid[r]) grid[r] = [];
+    let c = 0;
+    for (const cell of cells) {
+      while (occupied.has(`${r}:${c}`)) c += 1;
+      grid[r][c] = { ...cell, row: r, col: c };
+      for (let dr = 0; dr < cell.rowspan; dr += 1) {
+        for (let dc = 0; dc < cell.colspan; dc += 1) {
+          if (dr === 0 && dc === 0) continue;
+          if (!grid[r + dr]) grid[r + dr] = [];
+          occupied.add(`${r + dr}:${c + dc}`);
+          grid[r + dr][c + dc] = { hidden: true, row: r, col: c };
+        }
+      }
+      c += cell.colspan;
+    }
+  });
+  return grid;
+}
+
+function dayOfCell(text) {
+  const s = toHalfWidth(text).replace(/\s/g, '');
+  if (!s || s.length > 12) return 0;
+  const m = s.match(/(?:星期|周|礼拜)\s*([一二三四五六日天七1-7])/);
+  if (m) return DAY_CHAR[m[1]] || 0;
+  if (/^(一|二|三|四|五|六|日|天)$/.test(s)) return DAY_CHAR[s] || 0;
+  return 0;
+}
+
+function sectionRangeOfLabel(text) {
+  const s = toHalfWidth(text).replace(/\s/g, '');
+  if (!s || s.length > 14) return null;
+  let m = s.match(/^第?(\d{1,2})(?:[-~\u2013\u2014至到](\d{1,2}))?节?$/);
+  if (m) return [Number(m[1]), Number(m[2] || m[1])];
+  m = s.match(/第?(\d{1,2})[-~\u2013\u2014至到](\d{1,2})节/);
+  if (m) return [Number(m[1]), Number(m[2])];
+  return null;
+}
+
+/** 解析教务系统课表网页（正方 / 强智 / URP / 各类自建系统通用表格） */
+function parseScheduleHTML(html) {
+  const source = String(html || '');
+  const tables = [...source.matchAll(/<table\b[\s\S]*?<\/table>/gi)].map((m) => m[0]);
+  const warnings = [];
+  if (!tables.length) {
+    if (/<tr\b/i.test(source)) tables.push(source);
+    else return { courses: [], warnings: ['没有在内容里找到表格，请确认复制的是课表页面。'] };
+  }
+
+  let best = { courses: [], warnings: [] };
+  for (const table of tables) {
+    const got = parseScheduleTable(table);
+    if (got.courses.length > best.courses.length) best = got;
+  }
+  if (!best.courses.length) {
+    warnings.push('表格里没有识别出课程，可能是页面结构特殊。可以改用「手动添加」或 CSV 导入。');
+    return { courses: [], warnings };
+  }
+  return best;
+}
+
+function parseScheduleTable(tableHtml) {
+  const rows = parseTableRows(tableHtml);
+  const grid = buildGrid(rows);
+  const warnings = [];
+
+  // 1. 找表头行
+  let headerRow = -1;
+  let dayCols = null;
+  for (let r = 0; r < Math.min(grid.length, 6); r += 1) {
+    const map = new Map();
+    for (const cell of grid[r] || []) {
+      if (!cell || cell.hidden) continue;
+      const d = dayOfCell(cell.text);
+      if (d) map.set(cell.col, d);
+    }
+    if (map.size >= 3) {
+      headerRow = r;
+      dayCols = map;
+      break;
+    }
+  }
+  if (headerRow < 0 || !dayCols) {
+    return { courses: [], warnings: ['表头里没有找到「星期一…星期日」，不是标准课表表格。'] };
+  }
+
+  // 2. 每一行的节次范围
+  const firstDayCol = Math.min(...dayCols.keys());
+  const rowInfo = [];
+  let cursor = 1;
+  for (let r = headerRow + 1; r < grid.length; r += 1) {
+    const line = grid[r] || [];
+    let label = '';
+    for (let c = 0; c < firstDayCol; c += 1) {
+      const cell = line[c];
+      if (cell && !cell.hidden && cell.text) {
+        label = cell.text;
+        if (sectionRangeOfLabel(label)) break;
+      }
+    }
+    const band = /^(上午|下午|中午|晚上|早晨|早间|夜间)$/.test(label.replace(/\s/g, ''));
+    const range = band ? null : sectionRangeOfLabel(label);
+    if (range) {
+      rowInfo[r] = { start: range[0], end: range[1] };
+      cursor = range[1] + 1;
+    } else if (band) {
+      rowInfo[r] = null;
+    } else {
+      rowInfo[r] = { start: cursor, end: cursor };
+      cursor += 1;
+    }
+  }
+
+  // 3. 遍历课程单元格
+  const courses = [];
+  const seen = new Set();
+  for (let r = headerRow + 1; r < grid.length; r += 1) {
+    const info = rowInfo[r];
+    if (!info) continue;
+    for (const [col, day] of dayCols.entries()) {
+      const cell = (grid[r] || [])[col];
+      if (!cell || cell.hidden) continue;
+      const text = (cell.text || '').trim();
+      if (!text) continue;
+      if (/^[\s—\-–－·、/]+$/.test(text)) continue;
+      if (/无课|休息|空闲|自习/.test(text) && text.length <= 4) continue;
+      const parsed = parseCourseCell(text);
+      if (!parsed.name) continue;
+      const spanEnd = rowInfo[Math.min(r + cell.rowspan - 1, grid.length - 1)];
+      const end = spanEnd ? spanEnd.end : info.end;
+      const weeks = parsed.weeks.length ? parsed.weeks : parseWeeks('1-16');
+      const course = {
+        name: parsed.name,
+        teacher: parsed.teacher,
+        room: parsed.room,
+        day,
+        start: info.start,
+        end: Math.max(end, info.start),
+        weeks,
+        weeksText: parsed.weeksText,
+        note: parsed.note,
+      };
+      const key = [course.name, course.day, course.start, course.end, weeks.join(','), course.room].join('|');
+      if (seen.has(key)) continue;
+      seen.add(key);
+      courses.push(course);
+    }
+  }
+
+  if (!courses.length) warnings.push('表格结构识别到了，但单元格里没有课程内容。');
+  return { courses, warnings };
+}
+
+/* ---------------- CSV ---------------- */
+
+function splitCSVLine(line, delim) {
+  const out = [];
+  let cur = '';
+  let quoted = false;
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i];
+    if (quoted) {
+      if (ch === '"') {
+        if (line[i + 1] === '"') {
+          cur += '"';
+          i += 1;
+        } else quoted = false;
+      } else cur += ch;
+    } else if (ch === '"') quoted = true;
+    else if (ch === delim) {
+      out.push(cur);
+      cur = '';
+    } else cur += ch;
+  }
+  out.push(cur);
+  return out.map((s) => s.trim());
+}
+
+const CSV_KEYS = [
+  ['name', /课程名称|课程|名称|course|subject/i],
+  ['day', /星期|周几|上课日|day|weekday/i],
+  ['start', /开始节|起始节|开始|start|begin/i],
+  ['end', /结束节|终止节|结束|end|finish/i],
+  ['weeks', /周次|周数|上课周|weeks?/i],
+  ['room', /地点|教室|上课地点|room|place|location/i],
+  ['teacher', /教师|老师|任课|teacher/i],
+  ['section', /节次|节|period|section/i],
+];
+
+function parseDayValue(text) {
+  const s = toHalfWidth(text).replace(/\s/g, '');
+  if (!s) return 0;
+  const m = s.match(/(?:星期|周|礼拜)\s*([一二三四五六日天七1-7])/);
+  if (m) return DAY_CHAR[m[1]] || 0;
+  if (/^[1-7]$/.test(s)) return Number(s);
+  if (/^[一二三四五六日天]$/.test(s)) return DAY_CHAR[s] || 0;
+  if (/mon/i.test(s)) return 1;
+  if (/tue/i.test(s)) return 2;
+  if (/wed/i.test(s)) return 3;
+  if (/thu/i.test(s)) return 4;
+  if (/fri/i.test(s)) return 5;
+  if (/sat/i.test(s)) return 6;
+  if (/sun/i.test(s)) return 7;
+  return 0;
+}
+
+function parseSectionValue(text) {
+  const s = toHalfWidth(text);
+  const m = s.match(/(\d{1,2})\s*(?:[-~\u2013\u2014至到]\s*(\d{1,2}))?/);
+  if (!m) return null;
+  return [Number(m[1]), Number(m[2] || m[1])];
+}
+
+function parseCSV(text) {
+  const raw = toHalfWidth(String(text || '')).replace(/\r/g, '');
+  const lines = raw.split('\n').filter((l) => l.trim());
+  if (lines.length < 2) {
+    return { courses: [], warnings: ['内容太短，至少需要表头 + 一行课程。'] };
+  }
+  let delim = '\t';
+  const candidates = ['\t', ',', ';'];
+  let bestCount = 0;
+  for (const d of candidates) {
+    const n = lines[0].split(d).length;
+    if (n > bestCount) {
+      bestCount = n;
+      delim = d;
+    }
+  }
+  if (bestCount < 3) {
+    return { courses: [], warnings: ['没有识别到 CSV 表头（需要「课程名称、星期、开始节次…」）。'] };
+  }
+
+  const header = splitCSVLine(lines[0], delim);
+  const map = {};
+  header.forEach((cell, i) => {
+    for (const [key, re] of CSV_KEYS) {
+      if (map[key] == null && re.test(cell)) {
+        map[key] = i;
+        return;
+      }
+    }
+  });
+  if (map.name == null || map.day == null) {
+    return { courses: [], warnings: ['表头里缺少「课程名称」或「星期」列。'] };
+  }
+
+  const warnings = [];
+  const courses = [];
+  for (let i = 1; i < lines.length; i += 1) {
+    const cols = splitCSVLine(lines[i], delim);
+    const name = (cols[map.name] || '').trim();
+    const day = parseDayValue(cols[map.day] || '');
+    if (!name || !day) {
+      if (name) warnings.push(`第 ${i + 1} 行「${name}」的星期无法识别，已跳过。`);
+      continue;
+    }
+    let range = null;
+    if (map.section != null && !(map.start != null && map.end != null)) {
+      range = parseSectionValue(cols[map.section] || '');
+    } else if (map.start != null) {
+      const s = Number((cols[map.start] || '').match(/\d{1,2}/) || 0);
+      const e = map.end != null ? Number((cols[map.end] || '').match(/\d{1,2}/) || 0) : 0;
+      if (s) range = [s, e >= s ? e : s];
+    }
+    if (!range) {
+      warnings.push(`第 ${i + 1} 行「${name}」缺少节次，已跳过。`);
+      continue;
+    }
+    const weeks = parseWeeks(cols[map.weeks] || '') || [];
+    courses.push({
+      name,
+      day,
+      start: range[0],
+      end: range[1],
+      weeks: weeks.length ? weeks : parseWeeks('1-16'),
+      weeksText: cols[map.weeks] || '',
+      room: map.room != null ? (cols[map.room] || '').trim() : '',
+      teacher: map.teacher != null ? (cols[map.teacher] || '').trim() : '',
+      note: '',
+    });
+  }
+  if (!courses.length) warnings.push('没有解析出课程，请检查表头名称。');
+  return { courses, warnings };
+}
+
+/* ---------------- JSON ---------------- */
+
+function pick(obj, keys) {
+  for (const k of keys) {
+    if (obj[k] != null && obj[k] !== '') return obj[k];
+  }
+  return undefined;
+}
+
+function parseJSON(text) {
+  let data;
+  try {
+    data = JSON.parse(String(text));
+  } catch (err) {
+    return { courses: [], warnings: ['JSON 格式有误：' + err.message] };
+  }
+  if (data && Array.isArray(data.courses)) {
+    return normalizeCourseList(data.courses, data.meta);
+  }
+  if (Array.isArray(data)) return normalizeCourseList(data, null);
+  return { courses: [], warnings: ['JSON 里没有找到课程数组。'] };
+}
+
+function normalizeCourseList(list, meta) {
+  const warnings = [];
+  const courses = [];
+  (list || []).forEach((item, i) => {
+    if (!item || typeof item !== 'object') return;
+    const name = String(pick(item, ['name', 'course', 'courseName', 'title', '课程名称', '课程']) || '').trim();
+    const day = parseDayValue(String(pick(item, ['day', 'weekday', '星期', '周几']) ?? ''));
+    const startRaw = pick(item, ['start', 'startSection', 'begin', '开始节次', '开始节']);
+    const endRaw = pick(item, ['end', 'endSection', 'finish', '结束节次', '结束节']);
+    const sectionRaw = pick(item, ['section', 'sections', '节次']);
+    let start = Number(startRaw);
+    let end = Number(endRaw);
+    if ((!start || !end) && sectionRaw) {
+      const r = parseSectionValue(String(sectionRaw));
+      if (r) {
+        start = r[0];
+        end = r[1];
+      }
+    }
+    if (!name || !day || !start) {
+      warnings.push(`第 ${i + 1} 条课程信息不完整，已跳过。`);
+      return;
+    }
+    if (!end || end < start) end = start;
+    let weeks = item.weeks;
+    if (typeof weeks === 'string') weeks = parseWeeks(weeks);
+    if (!Array.isArray(weeks) || !weeks.length) {
+      weeks = parseWeeks(String(pick(item, ['weeksText', '周次', 'week']) ?? '1-16')) || [];
+    }
+    courses.push({
+      name,
+      day,
+      start,
+      end,
+      weeks: [...new Set(weeks.map(Number).filter((n) => n >= 1 && n <= 32))].sort((a, b) => a - b),
+      weeksText: String(item.weeksText || ''),
+      room: String(pick(item, ['room', 'location', 'place', '地点', '教室']) || ''),
+      teacher: String(pick(item, ['teacher', 'instructor', '教师', '老师']) || ''),
+      note: String(item.note || ''),
+      hue: Number.isFinite(Number(item.hue)) ? Number(item.hue) : undefined,
+    });
+  });
+  return { courses, warnings, meta: meta || null };
+}
+
+/**
+ * 解析「纯文本表格」：从网页复制到 textarea 时，浏览器会把表格拍平成
+ * 以 Tab（或连续空格）分隔的文本，这里按表头里的星期列还原成课表。
+ *  节次\t星期一\t星期二\t星期三
+ *  第1-2节\t高等数学 李明 1-16周 教三301\t\t大学物理 ...
+ */
+function parseTextGrid(text) {
+  const lines = String(text || '')
+    .replace(/\r/g, '')
+    .split('\n')
+    .filter((l) => l.trim());
+  const splitRow = (line) => (line.indexOf('\t') >= 0 ? line.split('\t') : line.split(/\s{2,}/));
+
+  for (let i = 0; i < Math.min(lines.length, 8); i += 1) {
+    const head = splitRow(lines[i]).map((c) => c.trim());
+    const dayCols = new Map();
+    head.forEach((cell, idx) => {
+      const d = dayOfCell(cell);
+      if (d) dayCols.set(idx, d);
+    });
+    if (dayCols.size < 3) continue;
+
+    const warnings = [];
+    const courses = [];
+    let cursor = 1;
+    for (let r = i + 1; r < lines.length; r += 1) {
+      const cols = splitRow(lines[r]);
+      const label = (cols[0] || '').trim();
+      if (/^(上午|下午|中午|晚上|早晨)$/.test(label.replace(/\s/g, ''))) continue;
+      const range = sectionRangeOfLabel(label);
+      const start = range ? range[0] : cursor;
+      const end = range ? range[1] : start;
+      cursor = end + 1;
+      for (const [idx, day] of dayCols.entries()) {
+        const raw = (cols[idx] || '').trim();
+        if (!raw) continue;
+        const parsed = parseCourseCell(raw);
+        if (!parsed.name) continue;
+        courses.push({
+          name: parsed.name,
+          teacher: parsed.teacher,
+          room: parsed.room,
+          day,
+          start,
+          end,
+          weeks: parsed.weeks.length ? parsed.weeks : parseWeeks('1-16'),
+          weeksText: parsed.weeksText,
+          note: parsed.note,
+        });
+      }
+    }
+    if (courses.length) return { courses, warnings, format: 'grid' };
+  }
+  return { courses: [], warnings: ['没有在这段文本里找到「星期一…星期日」的表头。'], format: 'grid' };
+}
+
+/** 统一入口：自动识别 HTML / JSON / 纯文本表格 / CSV */
+function parseAnything(text) {
+  const raw = String(text || '').trim();
+  if (!raw) return { courses: [], warnings: ['粘贴的内容是空的。'], format: 'empty' };
+  if (/^[{\[]/.test(raw)) {
+    const got = parseJSON(raw);
+    return { ...got, format: 'json' };
+  }
+  if (/<table|<tr|<td|<th/i.test(raw)) {
+    const got = parseScheduleHTML(raw);
+    return { ...got, format: 'html' };
+  }
+  // 先按「粘平的表格」识别，识别不到再按 CSV
+  const grid = parseTextGrid(raw);
+  if (grid.courses.length) return grid;
+  const got = parseCSV(raw);
+  return { ...got, format: 'csv' };
+}
+
+/* 课程表 · 应用主体（由 build.mjs 与 parse.js 合并为单文件） */
+
+const STORE_KEY = 'kcb.app.v2';
+const HUES = [214, 250, 278, 300, 330, 350, 12, 30, 44, 88, 152, 188];
+
+const DEFAULT_SECTIONS = [
+  ['08:00', '08:45'],
+  ['08:55', '09:40'],
+  ['10:00', '10:45'],
+  ['10:55', '11:40'],
+  ['14:00', '14:45'],
+  ['14:55', '15:40'],
+  ['16:00', '16:45'],
+  ['16:55', '17:40'],
+  ['19:00', '19:45'],
+  ['19:55', '20:40'],
+  ['20:50', '21:35'],
+  ['21:45', '22:30'],
+].map(([s, e]) => ({ s, e }));
+
+const IC = {
+  plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  left: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg>',
+  right: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 5.5 16 12l-6.5 6.5"/></svg>',
+  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v10m0 0-4-4m4 4 4-4"/><path d="M4 16v2.4A1.6 1.6 0 0 0 5.6 20h12.8a1.6 1.6 0 0 0 1.6-1.6V16"/></svg>',
+  settings: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.3"/><circle cx="8" cy="17" r="2.3"/></svg>',
+  calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.2" y="5" width="17.6" height="16" rx="4"/><path d="M3.2 10h17.6M8 3v3.4M16 3v3.4"/><path d="M8 14h2.4M13.6 14H16M8 17.6h2.4"/></svg>',
+};
+
+/* ---------------- 基础工具 ---------------- */
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+const esc = (s) =>
+  String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uid = () => Math.random().toString(36).slice(2, 9);
+const pad2 = (n) => String(n).padStart(2, '0');
+const clamp = (n, a, b) => Math.min(b, Math.max(a, n));
+
+function parseISO(iso) {
+  const [y, m, d] = String(iso || '').split('-').map(Number);
+  if (!y || !m || !d) return new Date();
+  return new Date(y, m - 1, d);
+}
+function startOfWeek(date) {
+  const x = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  x.setDate(x.getDate() - ((x.getDay() + 6) % 7));
+  return x;
+}
+function addDays(date, n) {
+  const x = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  x.setDate(x.getDate() + n);
+  return x;
+}
+function minutes(hhmm) {
+  const [h, m] = String(hhmm || '00:00').split(':').map(Number);
+  return (h || 0) * 60 + (m || 0);
+}
+function isoDate(date) {
+  return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}`;
+}
+function weekdayIndex(date) {
+  return ((date.getDay() + 6) % 7) + 1;
+}
+
+/* ---------------- 状态 ---------------- */
+let state = null;
+let viewWeek = 1;
+let closeSheet = null;
+let toastTimer = 0;
+let tickTimer = 0;
+
+function defaultMeta() {
+  const now = new Date();
+  const monday = startOfWeek(now);
+  return {
+    name: `${now.getFullYear()} 学年`,
+    start: isoDate(monday),
+    showWeekend: false,
+    theme: 'auto',
+    sections: DEFAULT_SECTIONS.map((x) => ({ ...x })),
+  };
+}
+
+function newState() {
+  return { version: 2, meta: defaultMeta(), courses: [] };
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    return migrate(data);
+  } catch (err) {
+    return null;
+  }
+}
+
+function migrate(data) {
+  const out = newState();
+  if (!data || typeof data !== 'object') return out;
+  if (data.meta && typeof data.meta === 'object') {
+    Object.assign(out.meta, data.meta);
+    if (!Array.isArray(out.meta.sections) || !out.meta.sections.length) out.meta.sections = defaultMeta().sections;
+    out.meta.sections = out.meta.sections
+      .map((s) => ({ s: String(s.s || '').slice(0, 5), e: String(s.e || '').slice(0, 5) }))
+      .filter((s) => /^\d{2}:\d{2}$/.test(s.s) && /^\d{2}:\d{2}$/.test(s.e));
+    if (!out.meta.sections.length) out.meta.sections = defaultMeta().sections;
+  }
+  const list = Array.isArray(data.courses) ? data.courses : [];
+  out.courses = list
+    .map((c) => {
+      const weeks = Array.isArray(c.weeks) && c.weeks.length ? c.weeks.map(Number) : parseWeeks(c.weeksText || '1-16');
+      return {
+        id: c.id || uid(),
+        name: String(c.name || '').trim(),
+        teacher: String(c.teacher || ''),
+        room: String(c.room || ''),
+        day: clamp(Number(c.day) || 1, 1, 7),
+        start: clamp(Number(c.start) || 1, 1, 30),
+        end: clamp(Number(c.end) || Number(c.start) || 1, 1, 30),
+        weeks: [...new Set(weeks.filter((n) => n >= 1 && n <= 32))].sort((a, b) => a - b),
+        hue: Number.isFinite(Number(c.hue)) ? Number(c.hue) : HUES[0],
+        note: String(c.note || ''),
+      };
+    })
+    .filter((c) => c.name);
+  return out;
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify(state));
+  } catch (err) {
+    toast('本地保存不可用，建议先导出备份');
+  }
+}
+
+/* ---------------- 学期 / 周次 ---------------- */
+function currentWeek() {
+  const base = startOfWeek(parseISO(state.meta.start));
+  const diff = Math.round((startOfWeek(new Date()) - base) / 86400000);
+  return Math.floor(diff / 7) + 1;
+}
+function maxWeek() {
+  const fromCourses = state.courses.reduce((m, c) => Math.max(m, ...c.weeks, 1), 1);
+  return Math.max(16, fromCourses);
+}
+function weekMonday(week) {
+  return addDays(startOfWeek(parseISO(state.meta.start)), (week - 1) * 7);
+}
+
+/* ---------------- 布局 ---------------- */
+function buildLayout(sections) {
+  const ROW = 54;
+  const BRK = 22;
+  const rows = [];
+  let y = 0;
+  sections.forEach((sec, i) => {
+    if (i > 0) {
+      const gap = minutes(sec.s) - minutes(sections[i - 1].e);
+      if (gap >= 35) {
+        rows.push({ kind: 'brk', label: gap >= 90 ? '午休' : '休息', top: y, h: BRK });
+        y += BRK;
+      }
+    }
+    rows.push({ kind: 'sec', i, top: y, h: ROW });
+    y += ROW;
+  });
+  return { rows, total: y, rowH: ROW };
+}
+
+function visibleDays() {
+  const inWeek = state.courses.filter((c) => c.weeks.includes(viewWeek));
+  const weekend = state.meta.showWeekend || inWeek.some((c) => c.day >= 6);
+  const n = weekend ? 7 : 5;
+  return Array.from({ length: n }, (_, i) => i + 1);
+}
+
+function layoutBlocks(list) {
+  const sorted = [...list].sort((a, b) => a.start - b.start || b.end - a.end);
+  const out = [];
+  let cluster = [];
+  let clusterEnd = -1;
+  const flush = () => {
+    if (!cluster.length) return;
+    const lanes = [];
+    cluster.forEach((b) => {
+      let idx = lanes.findIndex((lane) => lane[lane.length - 1].end < b.start);
+      if (idx === -1) {
+        lanes.push([b]);
+        idx = lanes.length - 1;
+      } else lanes[idx].push(b);
+      b.lane = idx;
+    });
+    cluster.forEach((b) => {
+      b.laneCount = lanes.length;
+      out.push(b);
+    });
+    cluster = [];
+  };
+  sorted.forEach((b) => {
+    if (!cluster.length) {
+      cluster = [b];
+      clusterEnd = b.end;
+      return;
+    }
+    if (b.start <= clusterEnd) {
+      cluster.push(b);
+      clusterEnd = Math.max(clusterEnd, b.end);
+    } else {
+      flush();
+      cluster = [b];
+      clusterEnd = b.end;
+    }
+  });
+  flush();
+  return out;
+}
+
+function nowOffset(layout, sections) {
+  const now = new Date();
+  const m = now.getHours() * 60 + now.getMinutes();
+  const first = minutes(sections[0].s);
+  const last = minutes(sections[sections.length - 1].e);
+  if (m < first - 40 || m > last + 40) return null;
+  for (const row of layout.rows) {
+    if (row.kind !== 'sec') continue;
+    const s = minutes(sections[row.i].s);
+    const e = minutes(sections[row.i].e);
+    if (m >= s && m <= e) return row.top + ((m - s) / Math.max(1, e - s)) * row.h;
+    if (m < s) return row.top;
+  }
+  return layout.total;
+}
+
+/* ---------------- 渲染 ---------------- */
+function renderHeader() {
+  const monday = weekMonday(viewWeek);
+  const sunday = addDays(monday, 6);
+  $('#kicker').textContent = state.meta.name || '我的课表';
+  $('#weekTitle').textContent = `第 ${viewWeek} 周`;
+  $('#range').textContent = `${pad2(monday.getMonth() + 1)}.${pad2(monday.getDate())} – ${pad2(sunday.getMonth() + 1)}.${pad2(sunday.getDate())}`;
+  const btn = $('#btnToday');
+  btn.hidden = viewWeek === currentWeek();
+  document.title = `第${viewWeek}周 · ${state.meta.name || '课程表'}`;
+}
+
+function renderToday() {
+  const card = $('#todayCard');
+  const cw = currentWeek();
+  if (viewWeek !== cw) {
+    card.hidden = true;
+    return;
+  }
+  card.hidden = false;
+  const today = new Date();
+  const day = weekdayIndex(today);
+  const nowMin = today.getHours() * 60 + today.getMinutes();
+  const list = state.courses
+    .filter((c) => c.day === day && c.weeks.includes(viewWeek))
+    .sort((a, b) => a.start - b.start);
+  const when = `${today.getMonth() + 1}月${today.getDate()}日 · ${DAY_NAMES[day - 1]}`;
+  if (!list.length) {
+    $('#tcHead').innerHTML = `<span class="live-dot"></span>${esc(when)}`;
+    $('#tcScroll').innerHTML = '<div class="tc-empty">今天没有课，做点喜欢的事吧。</div>';
+    return;
+  }
+  $('#tcHead').innerHTML = `<span class="live-dot"></span>${esc(when)}<span class="tc-count">${list.length} 节课</span>`;
+  $('#tcScroll').innerHTML = list
+    .map((c) => {
+      const sec = state.meta.sections;
+      const startMin = minutes((sec[c.start - 1] || sec[0]).s);
+      const endMin = minutes((sec[Math.min(c.end, sec.length) - 1] || sec[sec.length - 1]).e);
+      const now = nowMin >= startMin && nowMin <= endMin;
+      const past = nowMin > endMin;
+      return `<div class="tchip ${now ? 'is-now' : ''} ${past ? 'is-past' : ''}" style="--h:${c.hue}">
+        <span>${esc((sec[c.start - 1] || sec[0]).s)}</span><b>${esc(c.name)}</b>
+      </div>`;
+    })
+    .join('');
+}
+
+function courseBlock(c, i, top, height) {
+  const now = new Date();
+  const sec = state.meta.sections;
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  const isToday = viewWeek === currentWeek() && c.day === weekdayIndex(now);
+  const s = minutes((sec[c.start - 1] || sec[0]).s);
+  const e = minutes((sec[Math.min(c.end, sec.length) - 1] || sec[sec.length - 1]).e);
+  const cls = [isToday && nowMin > e ? 'is-past' : '', isToday && nowMin >= s && nowMin <= e ? 'is-now' : ''].join(' ');
+  const w = 100 / c.laneCount;
+  const left = c.lane * w;
+  return `<button class="course ${cls}" data-id="${esc(c.id)}" style="--h:${c.hue};--i:${i};top:${top}px;height:${height}px;left:calc(${left}% + 2px);width:calc(${w}% - 4px)" aria-label="${esc(
+    c.name
+  )} ${DAY_NAMES[c.day - 1]} 第${c.start}-${c.end}节">
+    <span class="course-name">${esc(c.name)}</span>
+    ${c.room ? `<span class="course-room">${esc(c.room)}</span>` : ''}
+  </button>`;
+}
+
+function renderBoard(opts = {}) {
+  const board = $('#board');
+  const prevScroll = board.scrollTop;
+  const secs = state.meta.sections;
+
+  if (!state.courses.length) {
+    board.innerHTML = `
+      <div class="empty">
+        <div class="empty-art">${IC.calendar}</div>
+        <h2>还没有课程</h2>
+        <p>从教务系统复制课表页面粘贴进来，或者手动添加几门课。数据只保存在这台手机上。</p>
+        <div class="empty-actions">
+          <button class="btn primary" id="emptyImport">导入课表</button>
+          <button class="btn ghost" id="emptyDemo">看看示例</button>
+          <button class="btn ghost" id="emptyAdd">手动添加</button>
+        </div>
+      </div>`;
+    board.scrollTop = 0;
+    return;
+  }
+
+  const layout = buildLayout(secs);
+  const days = visibleDays();
+  const monday = weekMonday(viewWeek);
+  const todayIdx = weekdayIndex(new Date());
+  const isTodayWeek = viewWeek === currentWeek();
+  const topOf = (n) => (layout.rows.find((r) => r.kind === 'sec' && r.i === n - 1) || { top: 0 }).top;
+  const bottomOf = (n) => {
+    const r = layout.rows.find((x) => x.kind === 'sec' && x.i === n - 1);
+    return r ? r.top + r.h : layout.total;
+  };
+
+  let blockIndex = 0;
+  const dayHtml = days
+    .map((d) => {
+      const date = addDays(monday, d - 1);
+      const list = state.courses.filter((c) => c.day === d && c.weeks.includes(viewWeek) && c.start <= secs.length);
+      const laid = layoutBlocks(list);
+      const blocks = laid
+        .map((c) => {
+          blockIndex += 1;
+          const start = clamp(c.start, 1, secs.length);
+          const end = clamp(c.end, start, secs.length);
+          const top = topOf(start) + 2;
+          const height = bottomOf(end) - topOf(start) - 4;
+          return courseBlock(c, blockIndex, top, Math.max(26, height));
+        })
+        .join('');
+      return `<div class="day ${d === todayIdx && isTodayWeek ? 'is-today' : ''}">
+        ${blocks}
+      </div>`;
+    })
+    .join('');
+
+  const headHtml = days
+    .map((d) => {
+      const date = addDays(monday, d - 1);
+      const isToday = d === todayIdx && isTodayWeek;
+      return `<div class="gh-day ${isToday ? 'is-today' : ''}">
+        <span class="gh-name">${DAY_NAMES[d - 1]}</span>
+        <span class="gh-date">${date.getMonth() + 1}/${date.getDate()}</span>
+      </div>`;
+    })
+    .join('');
+
+  const axisHtml = layout.rows
+    .map((r) => {
+      if (r.kind === 'brk') return `<div class="axis-brk" style="height:${r.h}px">${esc(r.label)}</div>`;
+      const sec = secs[r.i];
+      return `<div class="axis-sec" style="height:${r.h}px">
+        <span class="axis-num">${r.i + 1}</span><span class="axis-time">${esc(sec.s)}</span>
+      </div>`;
+    })
+    .join('');
+
+  const lines = layout.rows
+    .filter((r) => r.kind === 'sec')
+    .map((r) => `<div class="hline" style="top:${r.top}px"></div>`)
+    .join('');
+
+  const offset = isTodayWeek ? nowOffset(layout, secs) : null;
+  const nowline =
+    offset != null && days.includes(todayIdx)
+      ? `<div class="nowline" id="nowline" style="top:${offset.toFixed(1)}px"></div>`
+      : '';
+
+  const dense = days.length >= 6;
+  board.classList.toggle('is-dense', dense);
+  board.innerHTML = `<div class="board-inner" style="--axisw:${dense ? 30 : 34}px">
+    <div class="grid-head">
+      <div class="gh-axis"></div>
+      <div class="gh-days">${headHtml}</div>
+    </div>
+    <div class="grid-body" style="height:${layout.total}px">
+      <div class="axis">${axisHtml}</div>
+      <div class="cols">${dayHtml}${lines}${nowline}</div>
+    </div>
+  </div>`;
+
+  const inner = $('.board-inner', board);
+  inner.style.setProperty('--rowh', `${layout.rowH}px`);
+
+  if (opts.scrollToNow !== false && isTodayWeek && offset != null && offset < layout.total * 0.55) {
+    board.scrollTop = Math.max(0, offset - 110);
+  } else if (opts.scrollToNow !== false) {
+    board.scrollTop = 0;
+  } else {
+    board.scrollTop = prevScroll;
+  }
+}
+
+function render() {
+  renderHeader();
+  renderToday();
+  renderBoard({ scrollToNow: true });
+}
+
+/* ---------------- 弹层 ---------------- */
+function sheetOpen(content) {
+  const scrim = document.createElement('div');
+  scrim.className = 'scrim';
+  const sheet = document.createElement('section');
+  sheet.className = 'sheet';
+  sheet.setAttribute('role', 'dialog');
+  sheet.setAttribute('aria-modal', 'true');
+  sheet.innerHTML = content;
+  document.body.append(scrim, sheet);
+  requestAnimationFrame(() => {
+    scrim.classList.add('in');
+    sheet.classList.add('in');
+  });
+
+  let closed = false;
+  const close = () => {
+    if (closed) return;
+    closed = true;
+    scrim.classList.remove('in');
+    sheet.classList.remove('in');
+    setTimeout(() => {
+      scrim.remove();
+      sheet.remove();
+    }, 320);
+    if (closeSheet === close) closeSheet = null;
+    document.documentElement.style.overflow = '';
+  };
+  closeSheet = close;
+  scrim.addEventListener('click', close);
+  sheet.querySelector('.x-btn')?.addEventListener('click', close);
+  document.documentElement.style.overflow = 'hidden';
+  return { sheet, close, scrim };
+}
+
+function sheetShell({ title, subtitle = '', body, footer = '' }) {
+  return `<div class="grabber"></div>
+    <header class="sheet-head">
+      <div><h2></h2>${subtitle ? '<p></p>' : ''}</div>
+      <button class="x-btn" aria-label="关闭">${IC.x}</button>
+    </header>
+    <div class="sheet-body">${body}</div>
+    <footer class="sheet-foot">${footer}</footer>`;
+}
+
+function openSheet(opts) {
+  if (closeSheet) closeSheet();
+  const { sheet, close } = sheetOpen(sheetShell(opts));
+  const h2 = $('.sheet-head h2', sheet);
+  const p = $('.sheet-head p', sheet);
+  h2.textContent = opts.title;
+  if (p) p.textContent = opts.subtitle;
+  opts.onMount?.(sheet, close);
+  return close;
+}
+
+function toast(msg) {
+  const el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('in');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('in'), 2100);
+}
+
+/* ---------------- 课程编辑 ---------------- */
+function hueForName(name) {
+  let h = 0;
+  for (let i = 0; i < name.length; i += 1) h = (h * 31 + name.charCodeAt(i)) % 9973;
+  return HUES[h % HUES.length];
+}
+
+function openEditor(course) {
+  const isEdit = !!course;
+  const secs = state.meta.sections;
+  const draft = isEdit
+    ? { ...course, weeks: [...course.weeks] }
+    : {
+        id: uid(),
+        name: '',
+        teacher: '',
+        room: '',
+        day: weekdayIndex(new Date()),
+        start: 1,
+        end: 2,
+        weeks: parseWeeks('1-16'),
+        hue: HUES[Math.floor(Math.random() * HUES.length)],
+        note: '',
+      };
+  const maxW = Math.max(20, ...draft.weeks, secs.length);
+
+  const body = `
+    <div class="form">
+      <label class="field">
+        <span class="lab">课程名称</span>
+        <input type="text" id="f-name" value="${esc(draft.name)}" placeholder="例如：高等数学A(1)" autocomplete="off">
+      </label>
+      <div class="row2">
+        <label class="field"><span class="lab">教师</span><input type="text" id="f-teacher" value="${esc(draft.teacher)}" placeholder="选填"></label>
+        <label class="field"><span class="lab">地点</span><input type="text" id="f-room" value="${esc(draft.room)}" placeholder="选填"></label>
+      </div>
+      <div class="field">
+        <span class="lab">上课日</span>
+        <div class="chips days" id="f-days">
+          ${DAY_NAMES.map(
+            (n, i) => `<button class="chip ${draft.day === i + 1 ? 'on' : ''}" data-day="${i + 1}">${n}</button>`
+          ).join('')}
+        </div>
+      </div>
+      <div class="row2">
+        <label class="field"><span class="lab">开始节次</span>
+          <select id="f-start">${secs.map((s, i) => `<option value="${i + 1}" ${draft.start === i + 1 ? 'selected' : ''}>第${i + 1}节 ${esc(s.s)}</option>`).join('')}</select>
+        </label>
+        <label class="field"><span class="lab">结束节次</span>
+          <select id="f-end">${secs.map((s, i) => `<option value="${i + 1}" ${draft.end === i + 1 ? 'selected' : ''}>第${i + 1}节 ${esc(s.e)}</option>`).join('')}</select>
+        </label>
+      </div>
+      <div class="field">
+        <span class="lab">上课周次 <span id="f-weekcount" style="letter-spacing:0;text-transform:none;font-weight:600"></span></span>
+        <div class="chips weeks" id="f-weeks">
+          ${Array.from({ length: maxW }, (_, i) => `<button class="chip ${draft.weeks.includes(i + 1) ? 'on' : ''}" data-week="${i + 1}">${i + 1}</button>`).join('')}
+        </div>
+        <div class="quick" id="f-quick">
+          <button data-q="all">全选</button><button data-q="odd">单周</button><button data-q="even">双周</button>
+          <button data-q="1-8">1-8</button><button data-q="9-16">9-16</button><button data-q="none">清空</button>
+        </div>
+      </div>
+      <div class="field">
+        <span class="lab">颜色</span>
+        <div class="swatches" id="f-colors">
+          ${HUES.map((h) => `<button class="sw ${draft.hue === h ? 'on' : ''}" data-hue="${h}" style="--h:${h}" aria-label="颜色 ${h}"></button>`).join('')}
+        </div>
+      </div>
+    </div>`;
+
+  const footer = isEdit
+    ? `<button class="btn danger" id="f-del" style="flex:0 0 42%">删除</button><button class="btn primary" id="f-save">保存</button>`
+    : `<button class="btn ghost" id="f-cancel">取消</button><button class="btn primary" id="f-save">添加课程</button>`;
+
+  openSheet({
+    title: isEdit ? '编辑课程' : '添加课程',
+    subtitle: isEdit ? formatWeeks(draft.weeks) : '填写课程信息，或从课表导入',
+    body,
+    footer,
+    onMount(sheet, close) {
+      const bodyEl = $('.sheet-body', sheet);
+      const nameInput = $('#f-name', bodyEl);
+      const weekChips = $$('#f-weeks .chip', bodyEl);
+      const countEl = $('#f-weekcount', bodyEl);
+      let day = draft.day;
+      let hue = draft.hue;
+
+      const refreshCount = () => {
+        const n = weekChips.filter((b) => b.classList.contains('on')).length;
+        countEl.textContent = n ? `· 已选 ${n} 周` : '· 未选择';
+      };
+      refreshCount();
+
+      $$('#f-days .chip', bodyEl).forEach((btn) => {
+        btn.addEventListener('click', () => {
+          day = Number(btn.dataset.day);
+          $$('#f-days .chip', bodyEl).forEach((b) => b.classList.toggle('on', b === btn));
+        });
+      });
+
+      weekChips.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          btn.classList.toggle('on');
+          refreshCount();
+        });
+      });
+
+      $$('#f-quick button', bodyEl).forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const q = btn.dataset.q;
+          weekChips.forEach((b) => {
+            const w = Number(b.dataset.week);
+            if (q === 'all') b.classList.add('on');
+            else if (q === 'none') b.classList.remove('on');
+            else if (q === 'odd') b.classList.toggle('on', w % 2 === 1);
+            else if (q === 'even') b.classList.toggle('on', w % 2 === 0);
+            else if (q === '1-8') b.classList.toggle('on', w >= 1 && w <= 8);
+            else if (q === '9-16') b.classList.toggle('on', w >= 9 && w <= 16);
+          });
+          refreshCount();
+        });
+      });
+
+      let colorLocked = isEdit; // 手动选过颜色后，改课程名不再自动换色
+
+      $$('#f-colors .sw', bodyEl).forEach((btn) => {
+        btn.addEventListener('click', () => {
+          hue = Number(btn.dataset.hue);
+          colorLocked = true;
+          $$('#f-colors .sw', bodyEl).forEach((b) => b.classList.toggle('on', b === btn));
+        });
+      });
+
+      $('#f-name', bodyEl)?.addEventListener('input', (e) => {
+        if (colorLocked) return;
+        // 新建课程时按名称自动配色，输入过程中保持同一色系
+        hue = hueForName(e.target.value || '');
+        $$('#f-colors .sw', bodyEl).forEach((b) => b.classList.toggle('on', Number(b.dataset.hue) === hue));
+      });
+
+      if (isEdit) {
+        $('#f-del', sheet).addEventListener('click', () => {
+          if (!confirm(`删除「${draft.name}」？`)) return;
+          state.courses = state.courses.filter((c) => c.id !== draft.id);
+          saveState();
+          close();
+          render();
+          toast('已删除');
+        });
+      } else {
+        $('#f-cancel', sheet).addEventListener('click', close);
+      }
+
+      $('#f-save', sheet).addEventListener('click', () => {
+        const name = nameInput.value.trim();
+        if (!name) {
+          toast('请填写课程名称');
+          nameInput.focus();
+          return;
+        }
+        const weeks = weekChips.filter((b) => b.classList.contains('on')).map((b) => Number(b.dataset.week));
+        if (!weeks.length) {
+          toast('请至少选择一个上课周次');
+          return;
+        }
+        let start = Number($('#f-start', bodyEl).value);
+        let end = Number($('#f-end', bodyEl).value);
+        if (end < start) [start, end] = [end, start];
+        const courseObj = {
+          id: draft.id,
+          name,
+          teacher: $('#f-teacher', bodyEl).value.trim(),
+          room: $('#f-room', bodyEl).value.trim(),
+          day,
+          start,
+          end,
+          weeks,
+          hue,
+          note: draft.note || '',
+        };
+        if (isEdit) {
+          state.courses = state.courses.map((c) => (c.id === draft.id ? courseObj : c));
+        } else {
+          state.courses.push(courseObj);
+        }
+        saveState();
+        close();
+        render();
+        toast(isEdit ? '已保存' : '已添加');
+      });
+    },
+  });
+}
+
+/* ---------------- 导入 ---------------- */
+function openImport(prefill = '') {
+  const body = `
+    <label class="field">
+      <span class="lab">粘贴内容</span>
+      <textarea id="imp-text" spellcheck="false" placeholder="① 在电脑上打开教务系统课表页面，全选复制后粘贴到这里&#10;② 也可以粘贴 CSV、JSON 备份">${esc(prefill)}</textarea>    </label>
+    <div class="quick" style="margin-top:-2px">
+      <button id="imp-file">选择文件…</button>
+      <button id="imp-sample">填入示例</button>
+      <button id="imp-clear">清空</button>
+    </div>
+    <div class="preview" id="imp-preview" hidden></div>
+    <div class="radio-row" id="imp-mode">
+      <label><input type="radio" name="impmode" value="append" checked> 追加</label>
+      <label><input type="radio" name="impmode" value="replace"> 替换全部</label>
+    </div>
+    <p class="helper">粘贴时会自动读取剪贴板里的网页结构（最准）；也支持被拍平成文本的课表、CSV 和 JSON。导入后请检查周次与节次，可在课表里点课程修改。</p>
+    <input type="file" id="imp-fileinput" accept=".json,.csv,.txt,.html,.htm,text/*" hidden>`;
+
+  openSheet({
+    title: '导入课表',
+    subtitle: '从教务系统粘贴，或导入备份文件',
+    body,
+    footer: `<button class="btn primary" id="imp-do" disabled>导入</button>`,
+    onMount(sheet, close) {
+      const bodyEl = $('.sheet-body', sheet);
+      const ta = $('#imp-text', bodyEl);
+      const preview = $('#imp-preview', bodyEl);
+      const doBtn = $('#imp-do', sheet);
+      let parsed = null;
+      let pastedHtml = '';
+
+      const showPreview = () => {
+        if (!parsed) {
+          preview.hidden = true;
+          doBtn.disabled = true;
+          return;
+        }
+        const { courses, warnings, format } = parsed;
+        const label = { html: '教务系统页面', grid: '纯文本课表', csv: 'CSV 表格', json: 'JSON 数据' }[format] || '文本';
+        const rows = courses.slice(0, 6).map(
+          (c) =>
+            `<li><i>${DAY_NAMES[c.day - 1]} ${c.start}-${c.end}节</i><span>${esc(c.name)}</span></li>`
+        );
+        preview.hidden = false;
+        preview.innerHTML = courses.length
+          ? `<h4><span class="ok">✓</span> 识别到 ${courses.length} 门课程 · ${label}</h4>
+             <ul>${rows.join('')}${courses.length > 6 ? `<li><i>…</i><span>还有 ${courses.length - 6} 门</span></li>` : ''}</ul>
+             ${warnings.length ? `<div class="warn">${esc(warnings.slice(0, 3).join(' '))}</div>` : ''}`
+          : `<h4>没有识别出课程</h4><div class="warn">${esc(warnings[0] || '请检查粘贴的内容是否完整。')}</div>`;
+        doBtn.disabled = courses.length === 0;
+      };
+
+      const runParse = () => {
+        const text = pastedHtml || ta.value.trim();
+        if (!text) {
+          parsed = null;
+          showPreview();
+          return;
+        }
+        try {
+          parsed = parseAnything(text);
+        } catch (err) {
+          parsed = { courses: [], warnings: ['解析失败：' + err.message], format: 'text' };
+        }
+        showPreview();
+      };
+
+      // 网页课表复制过来时，剪贴板里同时有 HTML 与纯文本。
+      // textarea 只能拿到纯文本，所以这里直接读 text/html，解析精度最高。
+      ta.addEventListener('paste', (e) => {
+        const html = e.clipboardData ? e.clipboardData.getData('text/html') : '';
+        if (html && /<table|<tr|<td/i.test(html)) {
+          e.preventDefault();
+          pastedHtml = html;
+          ta.value = `（已捕获网页表格结构，共 ${html.length} 字符）\n直接点「导入」即可，无需再手动整理。`;
+          runParse();
+        }
+      });
+
+      let timer = 0;
+      ta.addEventListener('input', () => {
+        pastedHtml = '';
+        clearTimeout(timer);
+        timer = setTimeout(runParse, 360);
+      });
+
+      $('#imp-file', bodyEl).addEventListener('click', () => $('#imp-fileinput', bodyEl).click());
+      $('#imp-fileinput', bodyEl).addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          pastedHtml = '';
+          ta.value = String(reader.result || '');
+          runParse();
+        };
+        reader.readAsText(file);
+      });
+      $('#imp-sample', bodyEl).addEventListener('click', () => {
+        pastedHtml = '';
+        ta.value = SAMPLE_HTML;
+        runParse();
+      });
+      $('#imp-clear', bodyEl).addEventListener('click', () => {
+        pastedHtml = '';
+        ta.value = '';
+        parsed = null;
+        showPreview();
+      });
+
+      doBtn.addEventListener('click', () => {
+        if (!parsed || !parsed.courses.length) return;
+        const mode = $('input[name="impmode"]:checked', bodyEl)?.value || 'append';
+        const imported = parsed.courses.map((c) => ({
+          id: uid(),
+          name: c.name,
+          teacher: c.teacher || '',
+          room: c.room || '',
+          day: c.day,
+          start: c.start,
+          end: c.end,
+          weeks: c.weeks?.length ? c.weeks : parseWeeks('1-16'),
+          hue: Number.isFinite(c.hue) ? c.hue : hueForName(c.name),
+          note: c.note || '',
+        }));
+        if (mode === 'replace') state.courses = imported;
+        else {
+          const seen = new Set(
+            state.courses.map((c) => [c.name, c.day, c.start, c.end, c.weeks.join(','), c.room].join('|'))
+          );
+          imported.forEach((c) => {
+            const key = [c.name, c.day, c.start, c.end, c.weeks.join(','), c.room].join('|');
+            if (!seen.has(key)) {
+              seen.add(key);
+              state.courses.push(c);
+            }
+          });
+        }
+        saveState();
+        close();
+        viewWeek = clamp(currentWeek(), 1, maxWeek());
+        render();
+        toast(`已导入 ${imported.length} 门课程`);
+      });
+
+      if (prefill) setTimeout(runParse, 60);
+      setTimeout(() => ta.focus(), 400);
+    },
+  });
+}
+
+/* ---------------- 设置 ---------------- */
+function openSettings() {
+  const m = state.meta;
+  const seg = ['auto', 'light', 'dark']
+    .map((k) => {
+      const label = { auto: '跟随系统', light: '浅色', dark: '深色' }[k];
+      return `<button data-theme="${k}" class="${(m.theme || 'auto') === k ? 'on' : ''}">${label}</button>`;
+    })
+    .join('');
+  const secRows = m.sections
+    .map(
+      (s, i) => `<div class="sec-row">
+        <label>第${i + 1}节</label>
+        <input type="time" data-k="s" data-i="${i}" value="${s.s}">
+        <input type="time" data-k="e" data-i="${i}" value="${s.e}">
+      </div>`
+    )
+    .join('');
+
+  const body = `
+    <label class="field"><span class="lab">学期名称</span>
+      <input type="text" id="s-name" value="${esc(m.name)}" placeholder="2026 秋季学期">
+    </label>
+    <label class="field"><span class="lab">第 1 周的周一</span>
+      <input type="date" id="s-start" value="${esc(m.start)}">
+    </label>
+    <div class="field">
+      <span class="lab">主题</span>
+      <div class="seg" id="s-theme">${seg}</div>
+    </div>
+    <div class="field" style="padding:2px 13px">
+      <div class="switch-row">
+        <div>显示周末<small>周六、周日也显示在课表里</small></div>
+        <input class="switch" type="checkbox" id="s-weekend" ${m.showWeekend ? 'checked' : ''}>
+      </div>
+    </div>
+    <div class="field">
+      <span class="lab">节次时间</span>
+      <div id="s-sections">${secRows}</div>
+      <p class="helper">修改后会同步调整课表网格与时间提示。</p>
+    </div>
+    <div class="field">
+      <span class="lab">数据</span>
+      <div class="quick" style="margin-top:2px">
+        <button id="s-export">导出备份</button>
+        <button id="s-import">导入备份</button>
+        <button id="s-demo">载入示例</button>
+        <button id="s-clear" style="color:var(--danger);background:rgba(224,52,43,.1)">清空课程</button>
+      </div>
+      <p class="helper">数据只保存在本机浏览器里。换手机或清理浏览器前，记得先导出备份。</p>
+    </div>
+    <p class="helper" style="text-align:center;margin:14px 0 4px">
+      课程表 v1.0 · 适配 iPhone 17 / iOS 27<br>
+      添加到主屏幕即可全屏使用；桌面小组件见 Scriptable 脚本
+    </p>`;
+
+  openSheet({
+    title: '设置',
+    subtitle: '学期、外观与节次时间',
+    body,
+    footer: `<button class="btn primary" id="s-save">完成</button>`,
+    onMount(sheet, close) {
+      const bodyEl = $('.sheet-body', sheet);
+      $$('#s-theme button', bodyEl).forEach((btn) => {
+        btn.addEventListener('click', () => {
+          $$('#s-theme button', bodyEl).forEach((b) => b.classList.toggle('on', b === btn));
+          state.meta.theme = btn.dataset.theme;
+          applyTheme();
+          saveState();
+        });
+      });
+      $('#s-weekend', bodyEl).addEventListener('change', (e) => {
+        state.meta.showWeekend = e.target.checked;
+        saveState();
+        renderBoard({ scrollToNow: false });
+        renderToday();
+      });
+      $('#s-export', bodyEl).addEventListener('click', () => openExport());
+      $('#s-import', bodyEl).addEventListener('click', () => openImport());
+      $('#s-demo', bodyEl).addEventListener('click', () => {
+        if (state.courses.length && !confirm('载入示例会覆盖当前课程，继续？')) return;
+        state = demoState();
+        saveState();
+        viewWeek = clamp(currentWeek(), 1, maxWeek());
+        close();
+        render();
+        toast('已载入示例课表');
+      });
+      $('#s-clear', bodyEl).addEventListener('click', () => {
+        if (!confirm('清空全部课程？此操作不可撤销。')) return;
+        state.courses = [];
+        saveState();
+        close();
+        render();
+        toast('已清空');
+      });
+      $('#s-save', sheet).addEventListener('click', () => {
+        const name = $('#s-name', bodyEl).value.trim();
+        const start = $('#s-start', bodyEl).value;
+        const rows = $$('#s-sections .sec-row', bodyEl);
+        const sections = rows.map((row) => ({
+          s: row.querySelector('[data-k="s"]').value || '08:00',
+          e: row.querySelector('[data-k="e"]').value || '08:45',
+        }));
+        const bad = sections.some((x) => minutes(x.e) <= minutes(x.s));
+        if (bad) {
+          toast('有节次的结束时间早于开始时间');
+          return;
+        }
+        state.meta.name = name || '我的课表';
+        if (/^\d{4}-\d{2}-\d{2}$/.test(start)) state.meta.start = start;
+        state.meta.sections = sections;
+        saveState();
+        close();
+        viewWeek = clamp(viewWeek, 1, maxWeek());
+        render();
+        toast('设置已保存');
+      });
+    },
+  });
+}
+
+/* ---------------- 导出 ---------------- */
+function exportPayload() {
+  return JSON.stringify({ version: 2, app: 'kcb', exportedAt: new Date().toISOString(), meta: state.meta, courses: state.courses }, null, 2);
+}
+
+function openExport() {
+  const json = exportPayload();
+  const body = `
+    <label class="field">
+      <span class="lab">备份内容</span>
+      <textarea id="exp-text" readonly>${esc(json)}</textarea>
+    </label>
+    <div class="btn-stack">
+      <button class="btn ghost small" id="exp-copy">复制到剪贴板</button>
+      <button class="btn ghost small" id="exp-download">下载 .json 文件</button>
+    </div>
+    <p class="helper">把这份 JSON 存到「文件」App，或直接保存到 iCloud，换机后可一键恢复。</p>`;
+  openSheet({
+    title: '导出备份',
+    subtitle: `${state.courses.length} 门课程 · ${state.meta.name}`,
+    body,
+    footer: `<button class="btn primary" id="exp-close">完成</button>`,
+    onMount(sheet, close) {
+      const ta = $('#exp-text', sheet);
+      const copy = async (text) => {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (err) {
+          ta.select();
+          ta.setSelectionRange(0, text.length);
+          return document.execCommand('copy');
+        }
+      };
+      $('#exp-copy', sheet).addEventListener('click', async () => {
+        const ok = await copy(json);
+        toast(ok ? '已复制备份内容' : '复制失败，请长按选择');
+      });
+      $('#exp-download', sheet).addEventListener('click', () => {
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `课程表备份-${isoDate(new Date())}.json`;
+        document.body.append(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 3000);
+        toast('已生成文件');
+      });
+      $('#exp-close', sheet).addEventListener('click', close);
+    },
+  });
+}
+
+/* ---------------- 示例数据 ---------------- */
+function demoState() {
+  const meta = {
+    name: '2026 秋季学期',
+    start: '2026-09-07',
+    showWeekend: false,
+    theme: 'auto',
+    sections: DEFAULT_SECTIONS.map((x) => ({ ...x })),
+  };
+  const rows = [
+    ['高等数学A(1)', '李明', '教三-301', 1, 1, 2, '1-16'],
+    ['程序设计基础', '张伟', '计算机楼-402', 1, 5, 6, '1-16'],
+    ['概率论与数理统计', '吴敏', '教三-208', 1, 7, 8, '1-16'],
+    ['大学英语(3)', 'Sarah', '外语楼-201', 2, 1, 2, '1-16'],
+    ['大学物理', '王芳', '理教-204', 2, 3, 4, '1-16'],
+    ['数据结构', '刘洋', '计算机楼-305', 2, 5, 6, '1-16'],
+    ['马克思主义基本原理', '孙丽', '教一-101', 2, 7, 8, '1-16'],
+    ['线性代数', '陈静', '教二-105', 3, 1, 2, '1-16'],
+    ['高等数学A(1)', '李明', '教三-301', 3, 3, 4, '1-16'],
+    ['大学物理实验', '郑凯', '物理实验中心', 3, 5, 6, '3-15'],
+    ['体育（羽毛球）', '赵强', '体育馆', 3, 7, 8, '1-16'],
+    ['大学物理', '王芳', '理教-204', 4, 1, 2, '1-16'],
+    ['大学英语(3)', 'Sarah', '外语楼-201', 4, 3, 4, '1-16'],
+    ['程序设计基础', '张伟', '计算机楼-402', 4, 5, 6, '1-16'],
+    ['思想道德与法治', '周涛', '教一-201', 4, 7, 8, '1-16'],
+    ['数据结构', '刘洋', '计算机楼-305', 5, 1, 2, '1-16'],
+    ['离散数学', '周涛', '教二-303', 5, 3, 4, '1-16'],
+    ['军事理论', '冯军', '教一-201', 6, 1, 2, '1-8'],
+  ];
+  const courses = rows.map(([name, teacher, room, day, start, end, weeks], i) => ({
+    id: `demo-${i}`,
+    name,
+    teacher,
+    room,
+    day,
+    start,
+    end,
+    weeks: parseWeeks(`${weeks}周`),
+    hue: hueForName(name + day + start),
+    note: '',
+  }));
+  return { version: 2, meta, courses };
+}
+
+const SAMPLE_HTML = `<table>
+<tr><th>节次</th><th>星期一</th><th>星期二</th><th>星期三</th><th>星期四</th><th>星期五</th></tr>
+<tr><td>第1-2节</td>
+  <td>高等数学A(1)<br>李明<br>1-16周<br>教三-301</td>
+  <td>大学英语(3)<br>Sarah<br>1-16周<br>外语楼-201</td>
+  <td>线性代数<br>陈静<br>1-16周<br>教二-105</td>
+  <td>大学物理<br>王芳<br>1-16周<br>理教-204</td>
+  <td>数据结构<br>刘洋<br>1-16周<br>计算机楼-305</td></tr>
+<tr><td>第3-4节</td>
+  <td></td>
+  <td>大学物理<br>王芳<br>1-16周<br>理教-204</td>
+  <td>高等数学A(1)<br>李明<br>1-16周<br>教三-301</td>
+  <td>大学英语(3)<br>Sarah<br>1-16周<br>外语楼-201</td>
+  <td>离散数学<br>周涛<br>1-16周<br>教二-303</td></tr>
+<tr><td>第5-6节</td>
+  <td>程序设计基础<br>张伟<br>1-16周<br>计算机楼-402</td>
+  <td>数据结构<br>刘洋<br>1-16周<br>计算机楼-305</td>
+  <td>大学物理实验<br>郑凯<br>3-15周(单)<br>物理实验中心</td>
+  <td>程序设计基础<br>张伟<br>1-16周<br>计算机楼-402</td>
+  <td></td></tr>
+</table>`;
+
+/* ---------------- 主题 ---------------- */
+const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+function applyTheme() {
+  const pref = state?.meta?.theme || 'auto';
+  const dark = pref === 'dark' || (pref === 'auto' && darkQuery.matches);
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', dark ? '#07080d' : '#f3f4f9');
+}
+darkQuery.addEventListener('change', () => {
+  if ((state?.meta?.theme || 'auto') === 'auto') applyTheme();
+});
+
+/* ---------------- 事件 ---------------- */
+function bindEvents() {
+  $('#btnAdd').addEventListener('click', () => openEditor(null));
+  $('#btnSettings').addEventListener('click', openSettings);
+  $('#btnImport').addEventListener('click', () => openImport());
+  $('#btnPrev').addEventListener('click', () => {
+    viewWeek = clamp(viewWeek - 1, 1, Math.max(maxWeek(), viewWeek));
+    renderHeader();
+    renderToday();
+    renderBoard({ scrollToNow: true });
+  });
+  $('#btnNext').addEventListener('click', () => {
+    viewWeek = clamp(viewWeek + 1, 1, Math.max(maxWeek(), viewWeek + 1));
+    renderHeader();
+    renderToday();
+    renderBoard({ scrollToNow: true });
+  });
+  $('#btnToday').addEventListener('click', () => {
+    viewWeek = clamp(currentWeek(), 1, maxWeek());
+    render();
+    toast(`第 ${viewWeek} 周`);
+  });
+  $('#board').addEventListener('click', (e) => {
+    const btn = e.target.closest('.course');
+    if (btn) {
+      const course = state.courses.find((c) => c.id === btn.dataset.id);
+      if (course) openEditor(course);
+      return;
+    }
+    if (e.target.closest('#emptyImport')) openImport();
+    else if (e.target.closest('#emptyAdd')) openEditor(null);
+    else if (e.target.closest('#emptyDemo')) {
+      state = demoState();
+      saveState();
+      viewWeek = clamp(currentWeek(), 1, maxWeek());
+      render();
+      toast('已载入示例课表');
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && closeSheet) closeSheet();
+  });
+  // 左右滑动切换周（在课表区域横向手势）
+  let touchX = 0;
+  let touchY = 0;
+  $('#board').addEventListener(
+    'touchstart',
+    (e) => {
+      if (e.touches.length !== 1) return;
+      touchX = e.touches[0].clientX;
+      touchY = e.touches[0].clientY;
+    },
+    { passive: true }
+  );
+  $('#board').addEventListener(
+    'touchend',
+    (e) => {
+      if (e.touches.length) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchX;
+      const dy = t.clientY - touchY;
+      if (Math.abs(dx) < 55 || Math.abs(dx) < Math.abs(dy) * 1.6) return;
+      if (dx < 0) $('#btnNext').click();
+      else $('#btnPrev').click();
+    },
+    { passive: true }
+  );
+}
+
+/* ---------------- 启动 ---------------- */
+function boot() {
+  const params = new URLSearchParams(location.search);
+  const root = document.documentElement;
+  root.dataset.booting = '1';
+  if (params.get('still')) root.dataset.still = '1';
+  if (params.get('reset')) {
+    try {
+      localStorage.removeItem(STORE_KEY);
+    } catch (err) {}
+  }
+  state = loadState();
+  if (!state) {
+    state = params.get('demo') ? demoState() : newState();
+  } else if (params.get('demo')) {
+    state = demoState();
+  }
+  if (!state.meta.sections || !state.meta.sections.length) state.meta.sections = defaultMeta().sections;
+  const themeParam = params.get('theme');
+  if (themeParam === 'dark' || themeParam === 'light') state.meta.theme = themeParam;
+  viewWeek = clamp(currentWeek(), 1, maxWeek());
+  const weekParam = Number(params.get('week'));
+  if (weekParam > 0) viewWeek = clamp(weekParam, 1, maxWeek());
+  applyTheme();
+  render();
+  bindEvents();
+  requestAnimationFrame(() => requestAnimationFrame(() => delete root.dataset.booting));
+
+  const open = params.get('open');
+  if (open === 'settings') openSettings();
+  else if (open === 'import') openImport();
+  else if (open === 'add') openEditor(null);
+  else if (open === 'export') openExport();
+  else if (state.courses[0] && open === 'edit') openEditor(state.courses[0]);
+
+  if (params.get('debug')) {
+    const btn = $('.icon-btn');
+    const cs = btn ? getComputedStyle(btn) : null;
+    const root = getComputedStyle(document.documentElement);
+    document.title = `T=${document.documentElement.dataset.theme} BG=${cs && cs.backgroundColor} PANEL=${root
+      .getPropertyValue('--panel')
+      .trim()} BF=${cs && cs.backdropFilter} W=${innerWidth}`;
+  }
+
+  if (params.get('export')) {
+    const pre = document.createElement('pre');
+    pre.id = 'export-json';
+    pre.textContent = exportPayload();
+    document.body.textContent = '';
+    document.body.append(pre);
+  }
+
+  if (params.get('selftest')) {
+    const log = [];
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    (async () => {
+      try {
+        openImport();
+        await wait(120);
+        const ta = $('#imp-text');
+        ta.value = SAMPLE_HTML;
+        ta.dispatchEvent(new Event('input'));
+        await wait(700);
+        log.push(`parsed=${!$('#imp-do').disabled}`);
+        $('#imp-do').click();
+        await wait(600);
+        log.push(`imported=${state.courses.length}`);
+        log.push(`blocks=${$$('.course').length}`);
+        openEditor(null);
+        await wait(120);
+        $('#f-name').value = '自测课程';
+        $('#f-save').click();
+        await wait(300);
+        log.push(`added=${state.courses.length}`);
+        const before = viewWeek;
+        $('#btnNext').click();
+        await wait(200);
+        log.push(`week=${before}->${viewWeek}`);
+        log.push(`range=${$('#range').textContent.trim()}`);
+        let saved = false;
+        try {
+          saved = !!localStorage.getItem(STORE_KEY);
+        } catch (e) {}
+        log.push(`saved=${saved}`);
+        document.title = `SELFTEST ${log.join(' | ')}`;
+      } catch (err) {
+        document.title = `SELFTEST ERR ${err.message} :: ${log.join(' | ')}`;
+      }
+    })();
+  }
+
+  tickTimer = setInterval(() => {
+    if (document.hidden) return;
+    if (viewWeek !== currentWeek()) return;
+    const board = $('#board');
+    if (!board) return;
+    const secs = state.meta.sections;
+    const layout = buildLayout(secs);
+    const offset = nowOffset(layout, secs);
+    const line = $('#nowline');
+    if (line && offset != null) line.style.top = `${offset.toFixed(1)}px`;
+    renderToday();
+  }, 60000);
+  window.addEventListener('beforeunload', () => clearInterval(tickTimer));
+}
+
+boot();
+
+    </script>
+  </body>
+</html>
